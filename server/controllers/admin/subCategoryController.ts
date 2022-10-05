@@ -83,3 +83,16 @@ export const updateSubCategory = async (req: Request, res: Response) => {
     res.status(500).send("Server error");
   }
 };
+
+export const deleteSubCategory = async (req: Request, res: Response) => {
+  const { id } = req.body;
+  try {
+    const deleted = await SubCategorySchema.findByIdAndDelete({
+      _id: id,
+    }).exec();
+    res.status(200).send(deleted);
+  } catch (err: any) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};

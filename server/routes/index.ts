@@ -1,7 +1,7 @@
 import { Router } from "express";
 import dbConnect from "../db/connect";
 import AuthRoute from "./authRoute";
-import AdminRoute from "./adminRoutes/adminRoute";
+import AdminRoute from "./adminRoutes/";
 const router = Router();
 
 dbConnect();

@@ -2,6 +2,7 @@ import { Request, Response, Router } from "express";
 import { validationResult } from "express-validator";
 import {
   createCategory,
+  deleteCategory,
   getCategory,
   updateCategory,
 } from "../../controllers/admin/categoryController";
@@ -30,6 +31,10 @@ router.patch("/", validateUpdateCategory, (req: Request, res: Response) => {
     return res.status(400).json({ errors: errors.array() });
   }
   updateCategory(req, res);
+});
+
+router.delete("/", (req: Request, res: Response) => {
+  deleteCategory(req, res);
 });
 
 export default router;
