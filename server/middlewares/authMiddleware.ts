@@ -1,4 +1,4 @@
-import { check } from "express-validator";
+import { check, header } from "express-validator";
 
 export const validateRegister = [
   check("name", "Name is required").not().isEmpty(),

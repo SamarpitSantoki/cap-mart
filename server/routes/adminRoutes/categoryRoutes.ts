@@ -12,7 +12,6 @@ import {
 } from "../../middlewares/adminMiddleware";
 
 const router = Router();
-
 router.post("/", validateCategory, (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -22,6 +21,7 @@ router.post("/", validateCategory, (req: Request, res: Response) => {
 });
 
 router.get("/", (req: Request, res: Response) => {
+
   getCategory(req, res);
 });
 

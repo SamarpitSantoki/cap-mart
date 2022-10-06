@@ -42,7 +42,7 @@ export const createProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const getProduct = async (req: Request, res: Response) => {
+export const getProducts = async (req: Request, res: Response) => {
   try {
     const data = await Product.find({}).exec();
     res.status(200).json(data);
@@ -106,5 +106,13 @@ export const deleteProduct = async (req: Request, res: Response) => {
   } catch (err: any) {
     console.error(err.message);
     res.status(500).send("Server error");
+  }
+};
+
+export const updateStock = async (id: string, count: number) => {
+  const product = await Product.findById(id);
+  if (product) {
+    product.stock = product.stock - count;
+    await product.save();
   }
 };

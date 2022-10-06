@@ -1,8 +1,7 @@
 import bcrypt from "bcryptjs";
 import { Request, Response } from "express";
 import User from "../models/UserSchema";
-import jwt from "jsonwebtoken";
-// import config from "config";
+import generateJWT from "../middlewares/generateToken";
 
 export const register = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
@@ -18,22 +17,21 @@ export const register = async (req: Request, res: Response) => {
     });
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
-    await user.save();
     const payload = {
       user: {
         id: user.id,
+        name: user.name,
+        email: user.email,
       },
     };
-    jwt.sign(
-      payload,
-      process.env.jwtSecret as string,
-      //   config.get("jwtSecret"),
-      { expiresIn: 360000 },
-      (err: any, token: any) => {
-        if (err) throw err;
-        res.json({ token });
-      }
-    );
+    const token = await generateJWT(payload);
+    user.access_token = token.token;
+    await user.save();
+    res.status(200).send({
+      name: user.name,
+      email: user.email,
+      access_token: user.access_token,
+    });
   } catch (err: any) {
     console.error(err.message);
     res.status(500).send("Server error");
@@ -51,20 +49,44 @@ export const login = async (req: Request, res: Response) => {
     if (!isMatch) {
       return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
     }
+
     const payload = {
       user: {
         id: user.id,
+        name: user.name,
+        email: user.email,
       },
     };
-    jwt.sign(
-      payload,
-      process.env.jwtSecret as string,
-      { expiresIn: 360000 },
-      (err: any, token: any) => {
-        if (err) throw err;
-        res.json({ token });
+    const token = await generateJWT(payload);
+    user.access_token = token.token;
+    await user.save();
+    res.status(200).send({
+      name: user.name,
+      email: user.email,
+      access_token: user.access_token,
+    });
+  } catch (err: any) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
+
+export const logout = async (req: Request, res: Response) => {
+  const { email } = req.body;
+
+  try {
+    await User.findOneAndUpdate(
+      {
+        email,
+      },
+      {
+        access_token: "",
+      },
+      {
+        new: true,
       }
     );
+    res.status(200).send("Logout Successfully");
   } catch (err: any) {
     console.error(err.message);
     res.status(500).send("Server error");

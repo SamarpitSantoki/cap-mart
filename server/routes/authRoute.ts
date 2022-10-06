@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { validateLogin, validateRegister } from "../middlewares/authMiddleware";
 import { validationResult } from "express-validator";
-import { login, register } from "../controllers/authController";
+import { login, logout, register } from "../controllers/authController";
 
 const router = Router();
 
@@ -19,6 +19,9 @@ router.post("/login", validateLogin, (req: any, res: any) => {
     return res.status(400).json({ errors: errors.array() });
   }
   login(req, res);
+});
+router.post("/logout", (req: any, res: any) => {
+  logout(req, res);
 });
 
 export default router;

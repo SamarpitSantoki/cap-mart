@@ -3,7 +3,7 @@ import { validationResult } from "express-validator";
 import {
   createProduct,
   deleteProduct,
-  getProduct,
+  getProducts,
   updateProduct,
 } from "../../controllers/admin/productController";
 import { validateProduct } from "../../middlewares/adminMiddleware";
@@ -19,7 +19,7 @@ router.post("/", validateProduct, (req: Request, res: Response) => {
 });
 
 router.get("/", (req: Request, res: Response) => {
-  getProduct(req, res);
+  getProducts(req, res);
 });
 
 router.patch("/", (req: Request, res: Response) => {
