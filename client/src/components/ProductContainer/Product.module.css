@@ -1,0 +1,91 @@
+.rectangleIcon {
+  top: 12px;
+  left: 7.5px;
+  border-radius: var(--br-md);
+  width: 245px;
+  height: 358px;
+}
+.rectangleIcon1 {
+  position: absolute;
+  top: 35px;
+  left: 38px;
+  width: 184px;
+  height: 193px;
+  object-fit: cover;
+}
+.grayCapOfCottonFabric {
+  position: absolute;
+  top: 242px;
+  left: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 26px;
+}
+.iconlyBoldPlus {
+  position: absolute;
+  height: 11.05%;
+  width: 16.1%;
+  top: 85.64%;
+  right: 5.43%;
+  bottom: 3.31%;
+  left: 78.47%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.div {
+  position: absolute;
+
+  top: 309px;
+  left: 32px;
+  font-size: var(--font-size-lg);
+  font-family: var(--font-adamina);
+  color: blue;
+  display: inline-block;
+}
+
+.groupDiv{
+  margin: 15px;
+}
+.groupDiv,
+.saleDiv {
+  position: absolute;
+  /* give box shadow */
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+}
+.saleDiv {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-alegreya-sans-sc);
+  color: white;
+  padding: 2px;
+  background-color: #0d6efd;
+  display: inline-block;
+  width: 75px;
+}
+.groupDiv {
+  background-color: white;
+  position: relative;
+  width: 248.5px;
+  height: 362px;
+  text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+  font-family: var(--font-font);
+}
+.addButton{
+  text-align: center;
+  padding-inline: 8px;
+  background: blue;
+  border-radius: 100%;
+  border: 0;
+  color: white;
+  font-weight: bold;
+}

@@ -1,38 +1,40 @@
-.App {
-  text-align: center;
+body{
+  background: white;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@import url("https://fonts.googleapis.com/css2?family=Adamina:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=font:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abel:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=ABeeZee:wght@400&display=swap");
+body {
+  margin: 0;
+  line-height: normal;
 }
+:root {
+  /* fonts */
+  --font-font: font;
+  --font-abeezee: ABeeZee;
+  --font-abel: Abel;
+  --font-abhaya-libre: "Abhaya Libre";
+  --font-almarai: Almarai;
+  --font-alegreya-sans-sc: "Alegreya Sans SC";
+  --font-adamina: Adamina;
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+  /* font sizes */
+  --font-size-xs: 20px;
+  --font-size-sm: 22px;
+  --font-size-base: 25px;
+  --font-size-lg: 30px;
+  --font-size-xl: 270px;
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+  /* Colors */
+  --color-white: #fff;
+  --color-gray-100: #f3f3f3;
+  --color-black: #000;
+  --color-blue: #3c37ff;
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  /* border radiuses */
+  --br-md: 10px;
 }

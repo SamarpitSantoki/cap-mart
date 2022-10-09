@@ -1,0 +1,102 @@
+.rectangleDiv1 {
+  display: flex;
+  
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-gray-100);
+}
+.cAPDiv {
+  
+  letter-spacing: 0.3em;
+  display: inline-block;
+}
+
+.groupDiv {
+  bottom: 0;
+}
+.frameDiv {
+  font-size: var(--font-size-xl);
+  font-family: var(--font-adamina);
+}
+.rectangleIcon {
+  
+  border-radius: var(--br-md);
+  width: 245px;
+  height: 358px;
+}
+.rectangleIcon1 {
+  
+  width: 184px;
+  height: 193px;
+  object-fit: cover;
+}
+.grayCapOfCottonFabric {
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 26px;
+}
+.iconlyBoldPlus {
+  
+  height: 11.05%;
+  width: 16.1%;
+  right: 5.43%;
+  bottom: 3.31%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.div {
+  
+  font-size: var(--font-size-lg);
+  font-family: var(--font-adamina);
+  display: inline-block;
+}
+.rectangleButton,
+.saleDiv {
+  width: 69px;
+  
+}
+.saleDiv {
+  font-size: var(--font-size-sm);
+  font-family: var(--font-alegreya-sans-sc);
+  color: var(--color-white);
+  display: inline-block;
+  width: 75px;
+  height: 23px;
+}
+.frameDiv1,
+.frameDiv2,
+.groupDiv1,
+.rectangleDiv2 {
+  width: 248.5px;
+  height: 362px;
+}
+
+.rectangleDiv2 {
+  border-radius: var(--br-md);
+  background-color: var(--color-blue);
+  width: 69px;
+  height: 28px;
+}
+.frameDiv3,
+.frameDiv4,
+.frameDiv5,
+.groupDiv5 {
+  
+  width: 248.5px;
+  height: 362px;
+}
+
+
+.rectangleDiv {
+    width: auto;
+    background-color: whitesmoke;
+  border-radius: 10px;
+    text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+  font-family: var(--font-font);
+}

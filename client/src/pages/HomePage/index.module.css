@@ -1,0 +1,344 @@
+.rectangleDiv {
+    position: absolute;
+    top: 582px;
+    left: 0;
+    background-color: #f3f3f3;
+    width: 807px;
+    height: 1209px;
+  }
+  .catagoryDiv {
+    position: absolute;
+    top: 593px;
+    left: 639px;
+    font-family: var(--font-almarai);
+    color: var(--color-blue);
+    text-align: left;
+    display: inline-block;
+  }
+  .downOutlinedIcon {
+    position: absolute;
+    top: 593px;
+    left: 745px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+  }
+  .collectionDiv {
+    position: absolute;
+    top: 591px;
+    left: 343px;
+    font-size: var(--font-size-lg);
+    font-family: var(--font-abhaya-libre);
+    color: var(--color-blue);
+    text-align: left;
+    display: inline-block;
+  }
+  .f8140faec46017976ce96ee20decfeIcon {
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 403.5px);
+    width: 807px;
+    height: 415px;
+    object-fit: cover;
+  }
+  .cAPDiv {
+    position: absolute;
+    top: 24px;
+    left: 31px;
+    letter-spacing: 0.3em;
+    display: inline-block;
+  }
+  .frameDiv1,
+  .groupDiv {
+    position: absolute;
+    width: 807px;
+    height: 415px;
+  }
+  .groupDiv {
+    bottom: 0;
+    left: calc(50% - 403.5px);
+  }
+  .frameDiv1 {
+    top: 138px;
+    left: 0;
+    font-size: 270px;
+    font-family: var(--font-adamina);
+  }
+  .rectangleIcon {
+    position: absolute;
+    top: 12px;
+    left: 7.5px;
+    border-radius: var(--br-md);
+    width: 245px;
+    height: 358px;
+  }
+  .rectangleIcon1 {
+    position: absolute;
+    top: 29px;
+    left: 38px;
+    width: 184px;
+    height: 193px;
+    object-fit: cover;
+  }
+  .grayCapOfCottonFabric {
+    position: absolute;
+    top: 242px;
+    left: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 26px;
+  }
+  .iconlyBoldPlus {
+    position: absolute;
+    height: 11.05%;
+    width: 16.1%;
+    top: 85.64%;
+    right: 5.43%;
+    bottom: 3.31%;
+    left: 78.47%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+  }
+  .div {
+    position: absolute;
+    top: 309px;
+    left: 32px;
+    font-size: var(--font-size-lg);
+    font-family: var(--font-adamina);
+    color: var(--color-blue);
+    display: inline-block;
+  }
+  .rectangleButton,
+  .saleDiv {
+    width: 69px;
+    position: absolute;
+    top: 1px;
+    left: 3px;
+  }
+  .saleDiv {
+    top: 0;
+    left: 0;
+    font-size: var(--font-size-sm);
+    font-family: var(--font-alegreya-sans-sc);
+    color: var(--color-white);
+    display: inline-block;
+    width: 75px;
+    height: 23px;
+  }
+  .frameDiv2,
+  .frameDiv3,
+  .groupDiv1,
+  .rectangleDiv1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 248.5px;
+    height: 362px;
+  }
+  .frameDiv2,
+  .frameDiv3,
+  .rectangleDiv1 {
+    top: 636px;
+    left: 19px;
+  }
+  .frameDiv3,
+  .rectangleDiv1 {
+    left: 280px;
+  }
+  .rectangleDiv1 {
+    top: 1px;
+    left: 3px;
+    border-radius: var(--br-md);
+    background-color: var(--color-blue);
+    width: 69px;
+    height: 28px;
+  }
+  .frameDiv4,
+  .frameDiv5,
+  .frameDiv6,
+  .groupDiv5 {
+    position: absolute;
+    top: 636px;
+    left: 541px;
+    width: 248.5px;
+    height: 362px;
+  }
+  .frameDiv5,
+  .frameDiv6,
+  .groupDiv5 {
+    top: 1024px;
+    left: 19px;
+  }
+  .frameDiv6,
+  .groupDiv5 {
+    left: 280px;
+  }
+  .frameDiv6 {
+    left: 541px;
+  }
+  .frameDiv7,
+  .frameDiv8,
+  .frameDiv9,
+  .rectangleDiv8 {
+    position: absolute;
+    top: 1412px;
+    left: 19px;
+    width: 248.5px;
+    height: 362px;
+  }
+  .frameDiv8,
+  .frameDiv9,
+  .rectangleDiv8 {
+    left: 280px;
+  }
+  .frameDiv9,
+  .rectangleDiv8 {
+    left: 541px;
+  }
+  .rectangleDiv8 {
+    top: 1851px;
+    left: 0;
+    background-color: #f1f1f1;
+    width: 807px;
+    height: 341px;
+  }
+  .signInP {
+    margin-block-start: 0;
+    margin-block-end: 20px;
+  }
+  .trackAnOrder {
+    margin: 0;
+  }
+  .signInRegisterViewCartTra {
+    position: absolute;
+    top: 1951px;
+    left: 292px;
+    font-size: var(--font-size-xs);
+    font-family: var(--font-abel);
+    text-align: left;
+    display: inline-block;
+  }
+  .headOfficeAvenue {
+    line-height: 10px;
+  }
+  .headOfficeAvenueFashion1 {
+    top: 1961px;
+    left: 524px;
+    font-family: var(--font-abel);
+    text-align: right;
+  }
+  .brandsShowRoomsLocalStors,
+  .contactDetailsDiv,
+  .headOfficeAvenueFashion1,
+  .yourAccountDiv {
+    position: absolute;
+    font-size: var(--font-size-xs);
+    display: inline-block;
+  }
+  .brandsShowRoomsLocalStors {
+    top: 1945px;
+    left: 42px;
+    font-family: var(--font-abel);
+    text-align: left;
+  }
+  .contactDetailsDiv,
+  .yourAccountDiv {
+    top: 1901px;
+    left: 293px;
+  }
+  .contactDetailsDiv {
+    top: 1911px;
+    left: 647px;
+  }
+  .informationDiv {
+    top: 1901px;
+    left: 42px;
+    font-size: var(--font-size-xs);
+  }
+  .cAPSHOPDiv,
+  .homeDiv,
+  .informationDiv,
+  .loginSigninDiv {
+    position: absolute;
+    display: inline-block;
+  }
+  .cAPSHOPDiv {
+    top: 0;
+    left: 0;
+    font-size: var(--font-size-lg);
+    color: var(--color-blue);
+  }
+  .homeDiv,
+  .loginSigninDiv {
+    top: 5px;
+    left: 468px;
+  }
+  .loginSigninDiv {
+    left: 649px;
+  }
+  .vectorIcon {
+    position: absolute;
+    height: 97.22%;
+    width: 5.09%;
+    top: 0;
+    right: 19.32%;
+    bottom: 2.78%;
+    left: 75.59%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+  }
+  .rectangleIcon18 {
+    position: absolute;
+    top: 0;
+    left: 215px;
+    border-radius: 20px;
+    width: 150px;
+    height: 36px;
+  }
+  .vectorIcon1 {
+    position: absolute;
+    height: 64.48%;
+    width: 3.26%;
+    top: 26.09%;
+    right: 66.91%;
+    bottom: 9.42%;
+    left: 29.83%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+  }
+  .searchDiv {
+    position: absolute;
+    top: 6px;
+    left: 255px;
+    font-family: var(--font-font);
+    color: #707070;
+    text-align: center;
+    display: inline-block;
+  }
+  .frameDiv10 {
+    position: absolute;
+    top: 31px;
+    left: 28px;
+    width: 766px;
+    height: 36px;
+    text-align: left;
+    font-size: var(--font-size-xs);
+    font-family: var(--font-abeezee);
+  }
+  .frameDiv {
+    position: relative;
+    background-color: var(--color-white);
+    width: 100%;
+    height: 2209px;
+    overflow: hidden;
+    text-align: center;
+    font-size: var(--font-size-base);
+    color: var(--color-black);
+    font-family: var(--font-font);
+  }
+  

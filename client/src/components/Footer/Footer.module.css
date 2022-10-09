@@ -1,0 +1,9 @@
+.container{
+  max-width: 100%;
+  padding: 5rem;
+  margin: 50px auto 50px;
+  text-decoration: none;
+  background-color: whitesmoke;
+  border-radius: 10px;
+}
+
