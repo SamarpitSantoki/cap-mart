@@ -32,7 +32,7 @@ router.patch("/", validateUpdateCategory, (req: Request, res: Response) => {
   updateCategory(req, res);
 });
 
-router.delete("/", (req: Request, res: Response) => {
+router.delete("/:id", (req: Request, res: Response) => {
   deleteCategory(req, res);
 });
 

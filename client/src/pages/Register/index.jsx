@@ -2,6 +2,7 @@ import Header from "../../components/Header";
 import style from "./index.module.css";
 import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -64,7 +65,9 @@ function Register() {
               Create Account
             </button>
           </form>
-          <button className={style.login__registerButton}>Sign In</button>
+          <Link to={"/login"} className={style.login__registerButton}>
+            Sign In
+          </Link>
         </div>
       </div>
     </>

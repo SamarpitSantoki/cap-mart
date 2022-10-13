@@ -58,7 +58,7 @@ export const updateCategory = async (req: Request, res: Response) => {
 };
 
 export const deleteCategory = async (req: Request, res: Response) => {
-  const { id } = req.body;
+  const { id } = req.params;
   try {
     const deleted = await CategorySchema.findByIdAndDelete({ _id: id }).exec();
     res.send(deleted);

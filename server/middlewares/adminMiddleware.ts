@@ -26,8 +26,6 @@ export const validateProduct = [
   check("price", "Price is required").not().isEmpty(),
   check("displayPrice", "Display Price is required").not().isEmpty(),
   check("discountedPrice", "Discounted Price is required").not().isEmpty(),
-  check("shippingPrice", "Shiping Price is required").not().isEmpty(),
-  check("stock", "Stock is required").not().isEmpty(),
   check("category", "Category is required").not().isEmpty(),
   check("subCategory", "Sub Category is required").not().isEmpty(),
 ];

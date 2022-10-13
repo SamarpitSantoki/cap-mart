@@ -25,6 +25,7 @@ const ProductSchema = new mongoose.Schema(
     shippingPrice: {
       type: Number,
       required: true,
+      default: 50,
     },
     stock: {
       type: Number,

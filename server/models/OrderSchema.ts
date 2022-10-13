@@ -15,7 +15,7 @@ const OrderSchema = new mongoose.Schema(
       required: true,
     },
     address: {
-      type: String,
+      type: Object,
       required: true,
     },
     total: {
@@ -23,15 +23,7 @@ const OrderSchema = new mongoose.Schema(
       required: true,
     },
     cartItems: {
-      type: [
-        {
-          _id: String,
-          name: String,
-          count: Number,
-          price: Number,
-          total: Number,
-        },
-      ],
+      type: [Object],
       required: true,
     },
     status: {

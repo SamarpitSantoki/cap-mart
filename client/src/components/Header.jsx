@@ -10,7 +10,9 @@ function Header() {
   return (
     <Container>
       <div className={styles.navbar}>
-        <div className={styles.title}>CAP SHOP</div>
+        <Link to={"/"}>
+          <div className={styles.title}>CAP SHOP</div>
+        </Link>
         <div className={styles.search}>
           {/* icon of search */}
           <img

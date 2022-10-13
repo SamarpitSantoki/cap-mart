@@ -179,7 +179,7 @@ const UserList = () => {
           </p>
         </div>
         <button
-          className="bg-medi-200 text-white rounded-md px-8 py-2 text-base font-medium hover:bg-medi-100 focus:outline-none focus:ring-2 focus:ring-green-300"
+          className="bg-blue-600 text-white rounded-md px-8 py-2 text-base font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-green-300"
           onClick={() => setModal(true)}
         >
           Add New
@@ -281,8 +281,8 @@ const UserList = () => {
         <ReactPaginate
           breakLabel="..."
           containerClassName="flex justify-between list-none pointer items-center h-10 space-x-3"
-          activeLinkClassName="text-medi-300 text-white"
-          pageLinkClassName="p-2 border-2 rounded-sm  text-medi-100 border-medi-200 hover:bg-medi-200 hover:text-white"
+          activeLinkClassName="text-blue-300 text-white"
+          pageLinkClassName="p-2 border-2 rounded-sm  text-blue-100 border-blue-200 hover:bg-blue-200 hover:text-white"
           pageRangeDisplayed={5}
           renderOnZeroPageCount={null}
           previousLabel={"← Previous"}

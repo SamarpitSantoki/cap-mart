@@ -9,18 +9,7 @@ function ProductPage() {
   return (
     <Container>
       <Header />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          margin: "auto",
-          marginBottom: 50,
-        }}
-      >
-        <Banner />
-      </div>
+
       <ProductInfo />
 
       <div

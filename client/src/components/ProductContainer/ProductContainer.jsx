@@ -3,35 +3,16 @@ import { Button, Col, Row } from "react-bootstrap";
 import Product from "./Product";
 import styles from "./ProductContainer.module.css";
 
-const ProductContainer = () => {
+const ProductContainer = ({ data, addToCart }) => {
   return (
     <div className={styles.rectangleDiv}>
       <div className={styles.rectangleDiv1} />
       <Row sm={4}>
-        <Col>
-          <Product />
-        </Col>
-        <Col>
-          <Product />
-        </Col>
-        <Col>
-          <Product />
-        </Col>
-        <Col>
-          <Product />
-        </Col>
-        <Col>
-          <Product />
-        </Col>
-        <Col>
-          <Product />
-        </Col>
-        <Col>
-          <Product />
-        </Col>
-        <Col>
-          <Product />
-        </Col>
+        {data?.map((item) => (
+          <Col>
+            <Product addToCart={addToCart} key={item._id} data={item} />
+          </Col>
+        ))}
       </Row>
     </div>
   );

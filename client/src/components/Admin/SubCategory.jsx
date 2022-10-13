@@ -12,7 +12,11 @@ const SubCategoryList = () => {
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-
+  const [MainCategoryList, setMainCategoryList] = useState([]);
+  const [newCategory, setNewCategory] = useState({
+    name: "",
+    parent: "",
+  });
   useEffect(() => {
     // Fetch items from another resources.
     const endOffset = itemOffset + 10;
@@ -43,6 +47,18 @@ const SubCategoryList = () => {
         }
       );
       setUsersList(res.data);
+
+      const res1 = await axios.get(
+        process.env.REACT_APP_BASE_URL + "/admin/category",
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(sessionStorage.getItem("user")).access_token
+            }`,
+          },
+        }
+      );
+      setMainCategoryList(res1.data);
     } catch (err) {
       console.error(err.message);
     }
@@ -50,6 +66,46 @@ const SubCategoryList = () => {
   useEffect(() => {
     fecthUsers();
   }, []);
+
+  const handleAddCategory = async () => {
+    try {
+      const res = await axios.post(
+        process.env.REACT_APP_BASE_URL + "/admin/subcategory",
+        { name: newCategory.name, parent: newCategory.parent },
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(sessionStorage.getItem("user")).access_token
+            }`,
+          },
+        }
+      );
+      toast.success("Category Added Successfully");
+      fecthUsers();
+      setModal(false);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  const handleDeleteCategory = async (id) => {
+    try {
+      const res = await axios.delete(
+        process.env.REACT_APP_BASE_URL + "/admin/subcategory/" + id,
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(sessionStorage.getItem("user")).access_token
+            }`,
+          },
+        }
+      );
+      toast.success("Category Deleted Successfully");
+      fecthUsers();
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   return (
     <main className="relative w-full pb-8">
@@ -97,70 +153,52 @@ const SubCategoryList = () => {
           <form
             className="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
             action="#"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
           >
             <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-              Edit User
+              Add Category
             </h3>
             <div>
               <label
-                htmlFor="fname"
+                htmlFor="category"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               >
-                First Name
+                Category Name
               </label>
               <input
                 type="text"
-                name="fname"
-                id="fname"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                defaultValue={edit?.fname}
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="lname"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Last Name
-              </label>
-              <input
-                type="text"
-                name="lname"
-                id="lname"
-                defaultValue={edit?.lname}
+                value={newCategory.name}
+                onChange={(e) => {
+                  setNewCategory({ ...newCategory, name: e.target.value });
+                }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               />
             </div>
             <div>
               <label
-                htmlFor="Email"
+                htmlFor="category"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               >
-                Email
+                Main Category
               </label>
-              <input
-                type="text"
-                name="email"
-                id="email"
-                defaultValue={edit?.email}
+              <select
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              />
+                onChange={(e) => {
+                  setNewCategory({ ...newCategory, parent: e.target.value });
+                }}
+                value={newCategory.parent}
+              >
+                <option value="">Select Main Category</option>
+                {MainCategoryList.map((item) => {
+                  return <option value={item.name}>{item.name}</option>;
+                })}
+              </select>
             </div>
 
             <button
-              type="submit"
-              onClick={(e) => {
-                e.preventDefault();
-                toast.success("User Edited Succefully.", {
-                  position: "bottom-center",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
-              }}
+              onClick={handleAddCategory}
               className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Save Changes
@@ -179,7 +217,7 @@ const SubCategoryList = () => {
           </p>
         </div>
         <button
-          className="bg-medi-200 text-white rounded-md px-8 py-2 text-base font-medium hover:bg-medi-100 focus:outline-none focus:ring-2 focus:ring-green-300"
+          className="bg-blue-600 text-white rounded-md px-8 py-2 text-base font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-green-300"
           onClick={() => setModal(true)}
         >
           Add New
@@ -256,15 +294,7 @@ const SubCategoryList = () => {
                       <button
                         className="p-2 hover:rounded-md hover:bg-gray-200 z-1"
                         onClick={() => {
-                          toast.success("User Deleted!", {
-                            position: "bottom-center",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                          });
+                          handleDeleteCategory(user._id);
                         }}
                       >
                         <TrashIcon
@@ -283,8 +313,8 @@ const SubCategoryList = () => {
         <ReactPaginate
           breakLabel="..."
           containerClassName="flex justify-between list-none pointer items-center h-10 space-x-3"
-          activeLinkClassName="text-medi-300 text-white"
-          pageLinkClassName="p-2 border-2 rounded-sm  text-medi-100 border-medi-200 hover:bg-medi-200 hover:text-white"
+          activeLinkClassName="text-blue-300 text-white"
+          pageLinkClassName="p-2 border-2 rounded-sm  text-blue-100 border-blue-200 hover:bg-blue-200 hover:text-white"
           pageRangeDisplayed={5}
           renderOnZeroPageCount={null}
           previousLabel={"← Previous"}

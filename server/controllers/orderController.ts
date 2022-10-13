@@ -12,10 +12,16 @@ export const createOrder = async (req: Request, res: Response) => {
       cartItems.map(async (item: any) => {
         const product = await ProductSchema.findById(item._id);
         if (product) {
-          if (product.price !== item.price) {
-            item.price = product.price;
+          if (product.discountedPrice !== item.price) {
+            item.price = product.discountedPrice;
             item.total = product.price * item.count;
           }
+          item.category = product.category;
+          item.subCategory = product.subCategory;
+          item.shippingCharge = product.shippingCharge;
+          item.discountedPrice = product.discountedPrice;
+          item.price = product.price;
+          console.log("item", item);
           return item;
         } else {
           return null;
@@ -25,7 +31,7 @@ export const createOrder = async (req: Request, res: Response) => {
 
     const filteredItems = items.filter((item: any) => item !== null);
 
-    // calulate total
+    console.log("filteredItems", filteredItems);
     const totalPrice = items.reduce(
       (acc: any, item: any) => acc + item.price * item.count,
       0
@@ -40,8 +46,10 @@ export const createOrder = async (req: Request, res: Response) => {
       cartItems: filteredItems,
       paymentMethod,
     });
+    console.log("order", order);
+
     const savedOrder = await order.save();
-    res.status(201).json(savedOrder);
+    res.status(200).send(savedOrder);
 
     // add Order to User History
     await User.findOneAndUpdate(

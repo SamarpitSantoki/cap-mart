@@ -37,10 +37,8 @@
 }
 .div {
   position: absolute;
-
   top: 309px;
   left: 32px;
-  font-size: var(--font-size-lg);
   font-family: var(--font-adamina);
   color: blue;
   display: inline-block;

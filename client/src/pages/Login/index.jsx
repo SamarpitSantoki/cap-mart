@@ -2,7 +2,7 @@ import Header from "../../components/Header";
 import style from "./index.module.css";
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -17,6 +17,7 @@ function Login() {
         password,
       }
     );
+    console.log(res.data);
     sessionStorage.setItem("user", JSON.stringify(res.data));
     navigate("/");
     console.log(res.data);
@@ -54,9 +55,9 @@ function Login() {
               Sign In
             </button>
           </form>
-          <button className={style.login__registerButton}>
+          <Link to={"/register"} className={style.login__registerButton}>
             Create your Account
-          </button>
+          </Link>
         </div>
       </div>
     </>

@@ -5,6 +5,7 @@ import Product from "../components/Admin/Product";
 import SubCategoryList from "../components/Admin/SubCategory";
 import UserList from "../components/Admin/Users";
 import AdminPage from "../pages/Admin";
+import CartPage from "../pages/CartPage";
 import HomePage from "../pages/HomePage/HomePage";
 import Login from "../pages/Login";
 import Order from "../pages/OrderPage";
@@ -15,10 +16,11 @@ function index() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/product" element={<ProductPage />} />
+      <Route path="/product/:id" element={<ProductPage />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/order" element={<Order />} />
+      <Route path="/cart" element={<CartPage />} />
+      <Route path="/order/:id" element={<Order />} />
       <Route path="/admin" element={<AdminPage />}>
         <Route index element={<Product />} />
         <Route path="product" element={<Product />} />

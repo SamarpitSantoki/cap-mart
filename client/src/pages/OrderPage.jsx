@@ -1,39 +1,46 @@
-import { Link, useLocation, useParams } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Header from "../components/Header";
 
-const Order = () => {
+const OrderPage = () => {
   //make a url in backend to get order details
-  const location = useLocation();
-  const [order, setOrder] = useState();
-  const [user, setUser] = useState();
+  const { id } = useParams();
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  const [order, setOrder] = useState({});
 
-  const fecthUsers = async () => {
+  const fetchOrderInfo = async () => {
     try {
-      const res = await axios.get(process.env.REACT_APP_BASE_URL + "/order", {
-        headers: {
-          Authorization: `Bearer ${
-            JSON.parse(sessionStorage.getItem("user")).access_token
-          }`,
-        },
-      });
-      setOrder(res.data[0]);
-    } catch (err) {
-      console.error(err.message);
+      const res = await axios.get(
+        process.env.REACT_APP_BASE_URL + "/order/" + id,
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(sessionStorage.getItem("user")).access_token
+            }`,
+          },
+        }
+      );
+      setOrder(res.data);
+    } catch (e) {
+      toast.error("Failed to Load Details Please Reload Page");
     }
   };
+
   useEffect(() => {
-    fecthUsers();
+    fetchOrderInfo();
   }, []);
   return (
     <>
+      <Header />
       <div className="py-10 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
         <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
           <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
-            <div className="flex flex-col justify-start items-start dark:bg-medi-200 bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
-              <p className="inline-flex justify-between w-full space-x-3 text-lg md:text-xl dark:text-white font-semibold leading-6 xl:leading-5 text-medi-200">
-                <span>{order?._id}</span>
+            <div className="flex flex-col justify-start items-start dark:bg-blue-600 bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
+              <p className="inline-flex justify-between w-full space-x-3 text-lg md:text-xl dark:text-white font-semibold leading-6 xl:leading-5 text-blue-600">
+                <span>{order?.name}'s Order</span>
 
                 <span className="text-black ">
                   Status:{" "}
@@ -57,7 +64,7 @@ const Order = () => {
                     <div className="pb-4 md:pb-8 w-full md:w-40">
                       <img
                         className="md:w-60 md:h-32 md:block"
-                        src={"logo.png"}
+                        src={item.image}
                         alt="med"
                       />
                     </div>
@@ -69,31 +76,31 @@ const Order = () => {
                         <div className="flex justify-start items-start flex-col space-y-2">
                           <p className="text-sm dark:text-white leading-none text-gray-800">
                             <span className="dark:text-white text-gray-300">
-                              Expires on:{" "}
+                              Category:
                             </span>
-                            29/11/2024
+                            {item.category}
                           </p>
                           <p className="text-sm dark:text-white leading-none text-gray-800">
                             <span className="dark:text-white text-gray-300">
-                              Country of Origin:{" "}
+                              Sub Category:{" "}
                             </span>{" "}
-                            India
+                            {item.subCategory}
                           </p>
                         </div>
                       </div>
                       <div className="flex m justify-between space-x-8 items-start w-full">
                         <p className="text-base dark:text-white xl:text-lg leading-6">
-                          ₹{item.price}
+                          Price: ₹{item.discountedPrice}
                           <span className="text-red-300 line-through">
                             {" "}
-                            ₹{item.price + item.price * 0.1}
+                            ₹{item.price}
                           </span>
                         </p>
                         <p className="text-base dark:text-white xl:text-lg leading-6 text-gray-800">
-                          {item.count}
+                          Quantity: {item.count}
                         </p>
                         <p className="text-base dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">
-                          ₹{item.count * item.price}
+                          Total: ₹ {item.count * item.discountedPrice}
                         </p>
                       </div>
                     </div>
@@ -102,7 +109,7 @@ const Order = () => {
               })}
             </div>
             <div className="flex justify-center  md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
-              <div className="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 dark:bg-medi-200 space-y-6">
+              <div className="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 dark:bg-blue-600 space-y-6">
                 <h3 className="text-xl dark:text-white font-semibold leading-5 text-gray-800">
                   Summary
                 </h3>
@@ -121,7 +128,11 @@ const Order = () => {
                       Shipping
                     </p>
                     <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
-                      ₹50.00
+                      ₹{" "}
+                      {order?.cartItems?.reduce(
+                        (acc, item) => acc + item.shippingPrice,
+                        0
+                      )}
                     </p>
                   </div>
                 </div>
@@ -130,64 +141,30 @@ const Order = () => {
                     Total
                   </p>
                   <p className="text-base dark:text-gray-300 font-semibold leading-4 text-gray-600">
-                    ₹{(order?.amount + 50).toFixed(2)}
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-col justify-center px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 dark:bg-medi-200 space-y-6">
-                <h3 className="text-xl dark:text-white font-semibold leading-5 text-gray-800">
-                  Shipping
-                </h3>
-                <div className="flex justify-between items-start w-full">
-                  <div className="flex justify-center items-center space-x-4">
-                    <div className="w-8 h-8">
-                      <img
-                        layout="responsive"
-                        width={50}
-                        height={50}
-                        className="w-full h-full"
-                        alt="logo"
-                        src="/images/logo_medi.png"
-                      />
-                    </div>
-                    <div className="flex flex-col justify-start items-center">
-                      <p className="text-lg leading-6 dark:text-white font-semibold text-gray-800">
-                        DPD Delivery
-                        <br />
-                        <span className="font-normal">
-                          Delivery with 24 Hours
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                  <p className="text-lg font-semibold leading-6 dark:text-white text-gray-800">
-                    ₹50.00
+                    ₹
+                    {order.total +
+                      order?.cartItems?.reduce(
+                        (acc, item) => acc + item.shippingPrice,
+                        0
+                      )}
                   </p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 dark:bg-medi-200 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
+          <div className="bg-gray-50 dark:bg-blue-600 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
             <h3 className="text-xl dark:text-white font-semibold leading-5 text-gray-800">
               Customer
             </h3>
             <div className="flex flex-col md:flex-row xl:flex-col justify-start items-stretch h-full w-full md:space-x-6 lg:space-x-8 xl:space-x-0">
               <div className="flex flex-col justify-start items-start flex-shrink-0">
                 <div className="flex justify-center w-full md:justify-start items-center space-x-4 py-8 border-b border-gray-200">
-                  <img
-                    layout="intrinsic"
-                    width={50}
-                    height={50}
-                    className="w-60 h-32 hidden md:block"
-                    alt="me"
-                    src="/images/me.jpg"
-                  />
                   <div className="flex justify-start items-start flex-col space-y-2">
                     <p className="text-base dark:text-white font-semibold leading-4 text-left text-gray-800">
-                      {user?.fname} {user?.lname}
+                      Name: {order.name}
                     </p>
-                    <p className="text-sm dark:text-gray-300 leading-5 text-gray-600">
-                      10 Previous Orders
+                    <p className="text-base dark:text-white font-semibold leading-4 text-left text-gray-800">
+                      Phone: {order.phone}
                     </p>
                   </div>
                 </div>
@@ -214,7 +191,7 @@ const Order = () => {
                     />
                   </svg>
                   <p className="cursor-pointer text-sm leading-5 ">
-                    {user?.email}
+                    {order?.email}
                   </p>
                 </div>
               </div>
@@ -225,7 +202,8 @@ const Order = () => {
                       Shipping Address
                     </p>
                     <p className="w-48 lg:w-full dark:text-gray-300 xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">
-                      {order?.address}
+                      {order?.address?.address}, {order?.address?.city} -{" "}
+                      {order?.address?.pincode}
                     </p>
                   </div>
                 </div>
@@ -238,4 +216,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default OrderPage;

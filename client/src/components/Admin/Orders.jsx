@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import ReactPaginate from "react-paginate";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
+import { DateTime } from "luxon";
 const OrderList = () => {
   const [userList, setUsersList] = useState([]);
   const [edit, setEdit] = useState(null);
@@ -47,6 +49,28 @@ const OrderList = () => {
   useEffect(() => {
     fecthUsers();
   }, []);
+
+  const updateOrderStatus = async (e, _id) => {
+    try {
+      const res = await axios.patch(
+        process.env.REACT_APP_BASE_URL + "/order/" + _id,
+        {
+          status: e.target.value,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(sessionStorage.getItem("user")).access_token
+            }`,
+          },
+        }
+      );
+      toast.success("Order Status Updated");
+      fecthUsers();
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   return (
     <main className="relative w-full pb-8">
@@ -176,7 +200,7 @@ const OrderList = () => {
           </p>
         </div>
         <button
-          className="bg-medi-200 text-white rounded-md px-8 py-2 text-base font-medium hover:bg-medi-100 focus:outline-none focus:ring-2 focus:ring-green-300"
+          className="bg-blue-600 text-white rounded-md px-8 py-2 text-base font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-green-300"
           onClick={() => setModal(true)}
         >
           Add New
@@ -196,13 +220,12 @@ const OrderList = () => {
                 <span>User Name</span>
               </div>
             </td>
-            <td className="py-4 px-4 text-center">Email</td>
-            <td className="py-4 px-4 text-center">Shipping Address</td>
-            <td className="py-4 px-4 text-center">Product</td>
-            <td className="py-4 pr-10 pl-4 text-center">Qty.</td>
-            <td className="py-4 pr-10 pl-4 text-center">Amount</td>
-            <td className="py-4 pr-10 pl-4 text-center">Order Date</td>
-            <td className="py-4 pr-10 pl-4 text-center">Status</td>
+            <td className="py-4  text-center">Email</td>
+            <td className="py-4  text-center w-20">Shipping Address</td>
+            <td className="py-4  text-center">Product</td>
+            <td className="py-4  pl-4 text-center">Amount</td>
+            <td className="py-4  pl-4 text-center">Order Date</td>
+            <td className="py-4  pl-4 text-center">Status</td>
           </tr>
         </thead>
         <tbody className="w-fit">
@@ -214,7 +237,7 @@ const OrderList = () => {
                   //loop for diff users
                   className="hover:bg-gray-100 transition-colors group"
                 >
-                  <td className="flex gap-x-4 items-center py-4 pl-10">
+                  <td className="flex gap-x-2 items-center py-4 pl-10">
                     <div>
                       <a
                         href="#"
@@ -230,50 +253,46 @@ const OrderList = () => {
                       {user.email}{" "}
                     </div>{" "}
                   </td>
-                  <td className="font-medium text-center"> {user.address} </td>
+                  <td
+                    className="font-medium text-center truncate"
+                    title={
+                      user.address.address +
+                      ", " +
+                      user.address.city +
+                      ", " +
+                      user.address.pincode
+                    }
+                  >
+                    {" "}
+                    {user.address.address}, {user.address.city},
+                    {user.address.pincode}{" "}
+                  </td>
                   <td className="font-medium text-center">
                     {" "}
-                    {user.phone || "Not Provided"}{" "}
+                    <Link
+                      to={"/order/" + user._id}
+                      className="outline outline-1 p-1 outline-blue-500 bg-blue-500 text-white hover:bg-blue-700 rounded-md"
+                    >
+                      See Order{" "}
+                    </Link>
+                  </td>
+                  <td className="font-medium text-center"> {user.total}</td>
+                  <td className="font-medium text-center">
+                    {" "}
+                    {DateTime.fromISO(user.createdAt).toFormat("dd LLL yyyy")}
                   </td>
                   <td className="pr-2">
-                    <span className="inline-block w-20 group-hover:hidden">
-                      product.createdAt
+                    <span className="inline-block w-20">
+                      <select
+                        value={user.status}
+                        onChange={(e) => updateOrderStatus(e, user._id)}
+                      >
+                        <option value="pending">Pending</option>
+                        <option value="processing">Processing</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="cancelled">Cancelled</option>
+                      </select>
                     </span>
-                    <div className="hidden group-hover:flex group-hover:w-20 group-hover:items-center group-hover:text-gray-500 group-hover:gap-x-2">
-                      <button
-                        onClick={async () => {
-                          if (modal === true) {
-                            setModal(false);
-                            console.log(edit);
-                          }
-                          setEdit(user);
-                          console.log(edit);
-                          setModal(true);
-                        }}
-                        className="p-2 hover:rounded-md hover:bg-gray-200"
-                      >
-                        <PencilIcon className="w-6 h-6 fill-current" />
-                      </button>
-                      <button
-                        className="p-2 hover:rounded-md hover:bg-gray-200 z-1"
-                        onClick={() => {
-                          toast.success("User Deleted!", {
-                            position: "bottom-center",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                          });
-                        }}
-                      >
-                        <TrashIcon
-                          name={user.email}
-                          className="w-6 h-6 fill-current z-0"
-                        />
-                      </button>
-                    </div>
                   </td>
                 </tr>
               );
@@ -284,8 +303,8 @@ const OrderList = () => {
         <ReactPaginate
           breakLabel="..."
           containerClassName="flex justify-between list-none pointer items-center h-10 space-x-3"
-          activeLinkClassName="text-medi-300 text-white"
-          pageLinkClassName="p-2 border-2 rounded-sm  text-medi-100 border-medi-200 hover:bg-medi-200 hover:text-white"
+          activeLinkClassName="text-blue-300 text-white"
+          pageLinkClassName="p-2 border-2 rounded-sm  text-blue-100 border-blue-600 hover:bg-blue-600 hover:text-white"
           pageRangeDisplayed={5}
           renderOnZeroPageCount={null}
           previousLabel={"← Previous"}
