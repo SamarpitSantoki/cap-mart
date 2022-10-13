@@ -4,7 +4,7 @@ import User from "../models/UserSchema";
 import generateJWT from "../middlewares/generateToken";
 
 export const register = async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, phone } = req.body;
   try {
     let user = await User.findOne({ email });
     if (user) {
@@ -13,6 +13,7 @@ export const register = async (req: Request, res: Response) => {
     user = new User({
       name,
       email,
+      phone,
       password,
     });
     const salt = await bcrypt.genSalt(10);

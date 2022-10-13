@@ -1,0 +1,71 @@
+.adminPage{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+.navContainer{
+  max-width: 1920px;
+  background-color: antiquewhite;
+  display: flex;
+  margin: 0;
+  justify-content: space-between;
+  padding-inline: 2rem;
+  padding-block: 0.5rem;
+  font-size: x-large;
+}
+.panelTabs{
+  margin-left: 4rem;
+  margin-top: 1rem;
+}
+
+
+.tabsContainer{
+  display: flex;
+  flex-direction: column;
+  row-gap: .1rem;
+  margin: 1rem;
+  background: #D9D9D9;
+}
+
+.tabGroup{
+  display: flex;
+  flex-direction: column;
+  row-gap: .1rem;
+  margin-block-end: 1rem;
+}
+
+.tabLink{
+  cursor: pointer;
+  padding-block: .3rem;
+  color: #85858E;
+  padding-block: .3rem;
+  padding-inline: 1rem;
+  background: #35344A;
+  font-size: x-large;
+}
+.tabLink:hover{
+  background: #35344adf;
+  color: #85858E;
+}
+
+.tabLink.active{
+  background: #35344A;
+  color: #85858E;
+}
+
+.panelContainer{
+  display: flex;
+  flex-direction: column;
+  row-gap: .1rem;
+  margin-top: 2rem;
+  background: #D9D9D9;
+}
+
+.panelTitle{
+  font-size: x-large;
+  padding-block: .3rem;
+  padding-inline: 1rem;
+  background: #35344A;
+  color: #85858E;
+}

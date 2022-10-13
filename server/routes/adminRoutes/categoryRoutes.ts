@@ -21,7 +21,6 @@ router.post("/", validateCategory, (req: Request, res: Response) => {
 });
 
 router.get("/", (req: Request, res: Response) => {
-
   getCategory(req, res);
 });
 

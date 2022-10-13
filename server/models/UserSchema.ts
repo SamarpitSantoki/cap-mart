@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
   name: String,
+  phone: String,
   email: {
     type: String,
     unique: true,
@@ -19,6 +20,10 @@ const userSchema = new mongoose.Schema({
       ref: "Order",
     },
   ],
+  address: {
+    type: String,
+    default: "",
+  },
   date: {
     type: Date,
     default: Date.now,

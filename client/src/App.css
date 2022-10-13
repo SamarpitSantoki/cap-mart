@@ -1,6 +1,5 @@
-body{
-  background: white;
-}
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Adamina:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=font:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@400&display=swap");
@@ -8,12 +7,15 @@ body{
 @import url("https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Abel:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=ABeeZee:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
 body {
   margin: 0;
   line-height: normal;
 }
 :root {
   /* fonts */
+  --font-inter: Inter;
   --font-font: font;
   --font-abeezee: ABeeZee;
   --font-abel: Abel;
@@ -26,15 +28,26 @@ body {
   --font-size-xs: 20px;
   --font-size-sm: 22px;
   --font-size-base: 25px;
-  --font-size-lg: 30px;
-  --font-size-xl: 270px;
+  --font-size-lg: 27px;
+  --font-size-xl: 28px;
+  --font-size-2xl: 30px;
+  --font-size-3xl: 270px;
 
   /* Colors */
   --color-white: #fff;
   --color-gray-100: #f3f3f3;
+  --color-gray-200: #f1f1f1;
+  --color-gray-300: #85858e;
+  --color-gray-400: #35344a;
   --color-black: #000;
   --color-blue: #3c37ff;
 
   /* border radiuses */
   --br-md: 10px;
 }
+body{
+  background: white;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

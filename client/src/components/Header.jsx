@@ -2,6 +2,11 @@ import { Container } from "react-bootstrap";
 import styles from "./index.module.css";
 import { Link } from "react-router-dom";
 function Header() {
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  const handleLogout = () => {
+    sessionStorage.removeItem("user");
+    window.location = "/login ";
+  };
   return (
     <Container>
       <div className={styles.navbar}>
@@ -17,21 +22,31 @@ function Header() {
         </div>
         <div className={styles.nav}>
           <Link to={"/"}>Home</Link>
-          <span
-            style={{
-              padding: "0 10px",
-            }}
-          >
-            <Link to={"/login"}>Login</Link>
+          {user ? (
+            <>
+              {/* <Link to={"/profile"}>Profile</Link> */}
+              <Link to={"/cart"}>Cart</Link>
+              <Link onClick={handleLogout} to={"#"}>
+                Logout
+              </Link>
+            </>
+          ) : (
             <span
               style={{
-                padding: "0 2px",
+                padding: "0 10px",
               }}
             >
-              /
+              <Link to={"/login"}>Login</Link>
+              <span
+                style={{
+                  padding: "0 2px",
+                }}
+              >
+                /
+              </span>
+              <Link to={"/register"}>Register</Link>
             </span>
-            <Link to={"/register"}>Register</Link>
-          </span>
+          )}
         </div>
       </div>
     </Container>
