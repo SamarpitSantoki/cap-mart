@@ -18,18 +18,17 @@
     border-radius: 1rem;
     margin: 0.4rem;
     padding-inline: 5px;
-    border: 1px solid blue;
 }
 .search > input {
-    border: none;
-    outline: none;
+    border: 1px solid blue;
+
+    outline: 0px;
     background: transparent;
     padding: 0.4rem;
     font-size: 1rem;
     border-radius: 1rem;
     width: 20rem;
 }
-
 .nav > li{
     list-style: none;
 }

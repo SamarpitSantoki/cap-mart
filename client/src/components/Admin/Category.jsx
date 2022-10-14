@@ -7,7 +7,7 @@ import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 const CategoryList = () => {
   const [userList, setUsersList] = useState([]);
-  const [edit, setEdit] = useState(null);
+  const [method, setMethod] = useState("Add");
   const [modal, setModal] = useState(null);
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
@@ -54,20 +54,37 @@ const CategoryList = () => {
 
   const handleAddCategory = async () => {
     try {
-      const res = await axios.post(
-        process.env.REACT_APP_BASE_URL + "/admin/category",
-        { name: newCategory.name },
-        {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(sessionStorage.getItem("user")).access_token
-            }`,
-          },
-        }
-      );
-      toast.success("Category Added Successfully");
-      fecthUsers();
-      setModal(false);
+      if (method === "Add") {
+        const res = await axios.post(
+          process.env.REACT_APP_BASE_URL + "/admin/category",
+          { name: newCategory.name },
+          {
+            headers: {
+              Authorization: `Bearer ${
+                JSON.parse(sessionStorage.getItem("user")).access_token
+              }`,
+            },
+          }
+        );
+        toast.success("Category Added Successfully");
+        fecthUsers();
+        setModal(false);
+      } else {
+        const res = await axios.patch(
+          process.env.REACT_APP_BASE_URL + "/admin/category",
+          { id: newCategory._id, name: newCategory.name },
+          {
+            headers: {
+              Authorization: `Bearer ${
+                JSON.parse(sessionStorage.getItem("user")).access_token
+              }`,
+            },
+          }
+        );
+        toast.success("Category Added Successfully");
+        fecthUsers();
+        setModal(false);
+      }
     } catch (err) {
       console.error(err.message);
     }
@@ -114,7 +131,6 @@ const CategoryList = () => {
           <div className="flex justify-end p-2">
             <button
               onClick={() => {
-                setEdit(null);
                 setModal(false);
               }}
               type="button"
@@ -159,7 +175,6 @@ const CategoryList = () => {
                   setNewCategory({ ...newCategory, name: e.target.value });
                 }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                defaultValue={edit?.fname}
               />
             </div>
 
@@ -230,15 +245,19 @@ const CategoryList = () => {
                         onClick={async () => {
                           if (modal === true) {
                             setModal(false);
-                            console.log(edit);
                           }
-                          setEdit(user);
-                          console.log(edit);
                           setModal(true);
                         }}
                         className="p-2 hover:rounded-md hover:bg-gray-200"
                       >
-                        <PencilIcon className="w-6 h-6 fill-current" />
+                        <PencilIcon
+                          className="w-6 h-6 fill-current"
+                          onClick={() => {
+                            setModal(true);
+                            setNewCategory(user);
+                            setMethod("Edit");
+                          }}
+                        />
                       </button>
                       <button
                         className="p-2 hover:rounded-md hover:bg-gray-200 z-1"

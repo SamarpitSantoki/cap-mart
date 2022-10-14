@@ -2,7 +2,10 @@ import { Request, Response } from "express";
 import CategorySchema from "../../models/CategorySchema";
 import Product from "../../models/ProductSchema";
 import SubCategorySchema from "../../models/SubCategorySchema";
-
+import mkdirp from "mkdirp";
+import ResizeImg from "resize-img";
+import multer from "multer";
+import fs from "fs-extra";
 export const createProduct = async (req: Request, res: Response) => {
   const {
     name,
@@ -14,9 +17,15 @@ export const createProduct = async (req: Request, res: Response) => {
     stock,
     category,
     subCategory,
-    image,
   } = req.body;
   try {
+    console.log("check");
+    console.log(req.files);
+
+    const imagesArray = Object.keys((req as any).files).map(
+      (itm) => (req as any).files[itm].name
+    );
+
     let categoryExists = await CategorySchema.findOne({ name: category });
     let subCategoryExists = await SubCategorySchema.findOne({
       name: subCategory,
@@ -24,6 +33,7 @@ export const createProduct = async (req: Request, res: Response) => {
     if (!categoryExists || !subCategoryExists) {
       return res.status(400).json({ msg: "Category does not exists" });
     }
+
     const product = await Product.create({
       name,
       description,
@@ -34,8 +44,34 @@ export const createProduct = async (req: Request, res: Response) => {
       stock,
       category,
       subCategory,
-      image,
+      image: imagesArray,
     });
+
+    await mkdirp("../client/public/product_images/" + product._id)
+      .catch((err) => {
+        console.log(err);
+      })
+      .then((p) => console.log(`made dir staring with ${p}`));
+    await mkdirp("../client/public/product_images/" + product._id + "/gallery")
+      .catch((err) => {
+        console.log(err);
+      })
+      .then((p) => console.log(`made dir staring with ${p}`));
+    await mkdirp(
+      "../client/public/product_images/" + product._id + "/gallery/thumbs"
+    )
+      .catch((err) => {
+        console.log(err);
+      })
+      .then((p) => console.log(`made dir staring with ${p}`));
+
+    imagesArray.map((imageFile, i) => {
+      var productImage = (req as any).files?.[`image${i + 1}`];
+      var path =
+        "../client/public/product_images/" + product._id + "/" + imageFile;
+      productImage.mv(path);
+    });
+
     res.status(200).json({ product });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
@@ -64,9 +100,10 @@ export const updateProduct = async (req: Request, res: Response) => {
     category,
     subCategory,
     image,
-    id,
+    _id,
   } = req.body;
   try {
+    const imageFile = (req as any).files.image1.name;
     let categoryExists = await CategorySchema.findOne({ name: category });
     let subCategoryExists = await SubCategorySchema.findOne({
       name: subCategory,
@@ -75,8 +112,19 @@ export const updateProduct = async (req: Request, res: Response) => {
       return res.status(400).json({ msg: "Category does not exists" });
     }
 
+    fs.remove(
+      "../client/public/product_images/" + _id + "/" + image[0],
+      (err) => {
+        if (err) console.log(err);
+      }
+    );
+
+    var productImage = (req as any).files.image1;
+    var path = "../client/public/product_images/" + _id + "/" + imageFile;
+    productImage.mv(path);
+
     const updated = await Product.findByIdAndUpdate(
-      { _id: id },
+      { _id: _id },
       {
         name,
         description,
@@ -87,7 +135,7 @@ export const updateProduct = async (req: Request, res: Response) => {
         stock,
         category,
         subCategory,
-        image,
+        image: [imageFile],
       },
       { new: true }
     ).exec();
@@ -99,7 +147,7 @@ export const updateProduct = async (req: Request, res: Response) => {
 };
 
 export const deleteProduct = async (req: Request, res: Response) => {
-  const { id } = req.body;
+  const { id } = req.params;
   try {
     const deleted = await Product.findByIdAndDelete({ _id: id }).exec();
     res.send(deleted);

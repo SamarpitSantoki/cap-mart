@@ -27,25 +27,29 @@ if (!cached) {
 }
 
 async function dbConnect() {
-  if (cached.conn) {
+  try {
+    if (cached.conn) {
+      return cached.conn;
+    }
+
+    if (!cached.promise) {
+      const opts = {
+        bufferCommands: false,
+      };
+
+      cached.promise = mongoose
+        .connect(MONGODB_URI as string, opts)
+        .then((mongoose) => {
+          return mongoose;
+        });
+    }
+    cached.conn = await cached.promise;
+    console.log("database connected");
+
     return cached.conn;
+  } catch (e) {
+    dbConnect();
   }
-
-  if (!cached.promise) {
-    const opts = {
-      bufferCommands: false,
-    };
-
-    cached.promise = mongoose
-      .connect(MONGODB_URI as string, opts)
-      .then((mongoose) => {
-        return mongoose;
-      });
-  }
-  cached.conn = await cached.promise;
-  console.log("database connected");
-
-  return cached.conn;
 }
 
 export default dbConnect;

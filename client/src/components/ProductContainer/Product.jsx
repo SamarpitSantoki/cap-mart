@@ -3,9 +3,14 @@ import { Link } from "react-router-dom";
 import styles from "./Product.module.css";
 
 const Product = ({ data, addToCart }) => {
+
   return (
     <div className={styles.groupDiv}>
-      <img className={styles.rectangleIcon1} alt="" src="/banner.png" />
+      <img
+        className={styles.rectangleIcon1}
+        alt=""
+        src={"/product_images/" + data?._id + "/" + data?.image?.[0]}
+      />
       <Link to={"product/" + data._id}>
         <div className={styles.grayCapOfCottonFabric}>{data.name}</div>
       </Link>

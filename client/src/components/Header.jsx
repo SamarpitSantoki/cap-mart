@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import styles from "./index.module.css";
 import { Link } from "react-router-dom";
-function Header() {
+function Header({ text, handleSearchFilter }) {
   const user = JSON.parse(sessionStorage.getItem("user"));
   const handleLogout = () => {
     sessionStorage.removeItem("user");
@@ -15,12 +15,14 @@ function Header() {
         </Link>
         <div className={styles.search}>
           {/* icon of search */}
-          <img
-            height={20}
-            src="https://img.icons8.com/ios/50/0000ff/search--v1.png"
-            alt="search"
+
+          <input
+            className={styles.inputStyle}
+            type="text"
+            value={text}
+            placeholder="Search"
+            onChange={(e) => handleSearchFilter(e)}
           />
-          <input type="text" placeholder="Search" />
         </div>
         <div className={styles.nav}>
           <Link to={"/"}>Home</Link>

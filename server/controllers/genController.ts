@@ -2,8 +2,22 @@ import { Request, Response } from "express";
 import Product from "../models/ProductSchema";
 export const getProducts = async (req: Request, res: Response) => {
   try {
-    const filter = JSON.parse((req.query.filter as string) || "{}");
-
+    const filter = JSON.parse((req.query.filter as string) ?? "{}");
+    //  delete empty key from filter
+    if (!filter.name) {
+      delete filter.name;
+    }
+    if (filter.name) {
+      const temp = filter.name;
+      filter.name = { $regex: temp, $options: "i" };
+    }
+    if (!filter.category) {
+      delete filter.category;
+    }
+    if (!filter.subCategory) {
+      delete filter.subCategory;
+    }
+    console.log(filter);
     const data = await Product.find(filter).exec();
     console.log(data);
 

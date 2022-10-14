@@ -7,10 +7,14 @@ import {
   updateProduct,
 } from "../../controllers/admin/productController";
 import { validateProduct } from "../../middlewares/adminMiddleware";
-
+import fs from "fs";
+import multer from "multer";
+const upload = multer({ dest: "../client/public/images/" });
 const router = Router();
 
-router.post("/", validateProduct, (req: Request, res: Response) => {
+router.post("/", upload.array("image1", 2), (req: Request, res: Response) => {
+  console.log("cameherer");
+  // save the file to the server
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -26,7 +30,7 @@ router.patch("/", (req: Request, res: Response) => {
   updateProduct(req, res);
 });
 
-router.delete("/", (req: Request, res: Response) => {
+router.delete("/:id", (req: Request, res: Response) => {
   deleteProduct(req, res);
 });
 
