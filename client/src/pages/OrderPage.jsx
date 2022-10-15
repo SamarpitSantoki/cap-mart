@@ -64,7 +64,12 @@ const OrderPage = () => {
                     <div className="pb-4 md:pb-8 w-full md:w-40">
                       <img
                         className="md:w-60 md:h-32 md:block"
-                        src={item.image}
+                        src={
+                          "/static/product_images/" +
+                          item._id +
+                          "/" +
+                          item?.image[0]
+                        }
                         alt="med"
                       />
                     </div>

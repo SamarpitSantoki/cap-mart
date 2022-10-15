@@ -4,15 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client": "cd client && npm run build",
+    "server": "cd server && npm run start",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "dev-client": "cd client && npm run start",
+    "dev-server": "cd server && npm run dev",
+    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\""
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@types/bcryptjs": "^2.4.2"
-  },
   "dependencies": {
-    "@types/config": "^3.3.0",
-    "@types/jsonwebtoken": "^8.5.9"
+    "concurrently": "^7.4.0"
   }
 }

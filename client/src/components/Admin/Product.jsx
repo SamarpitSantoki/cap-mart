@@ -158,7 +158,6 @@ function Product() {
           </div>
           <form
             className="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
-            action="#"
             onSubmit={(e) => e.preventDefault()}
           >
             <h3 className="text-xl font-medium text-gray-900 dark:text-white">
@@ -178,7 +177,7 @@ function Product() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 defaultValue={edit?.name}
                 onChange={(e) => {
-                  setEdit((prev) => ({ ...prev, name: e.target.name }));
+                  setEdit((prev) => ({ ...prev, name: e.target.value }));
                 }}
               />
             </div>
@@ -392,7 +391,6 @@ function Product() {
             </div>
 
             <button
-              type="submit"
               onClick={(e) => {
                 e.preventDefault();
                 handleAddProduct();
@@ -490,7 +488,12 @@ function Product() {
               >
                 <td className="flex gap-x-4 items-center py-4 pl-10">
                   <img
-                    src={"/product_images/" + prod._id + "/" + prod?.image[0]}
+                    src={
+                      "/static/product_images/" +
+                      prod._id +
+                      "/" +
+                      prod?.image[0]
+                    }
                     alt="Product"
                     height="100px"
                     width="100px"

@@ -17,9 +17,7 @@ export const getProducts = async (req: Request, res: Response) => {
     if (!filter.subCategory) {
       delete filter.subCategory;
     }
-    console.log(filter);
     const data = await Product.find(filter).exec();
-    console.log(data);
 
     res.status(200).json(data);
   } catch (err) {

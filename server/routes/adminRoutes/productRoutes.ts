@@ -9,7 +9,7 @@ import {
 import { validateProduct } from "../../middlewares/adminMiddleware";
 import fs from "fs";
 import multer from "multer";
-const upload = multer({ dest: "../client/public/images/" });
+const upload = multer({ dest: "/client/public/images/" });
 const router = Router();
 
 router.post("/", upload.array("image1", 2), (req: Request, res: Response) => {

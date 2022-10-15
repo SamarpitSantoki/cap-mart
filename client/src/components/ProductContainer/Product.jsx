@@ -9,7 +9,7 @@ const Product = ({ data, addToCart }) => {
       <img
         className={styles.rectangleIcon1}
         alt=""
-        src={"/product_images/" + data?._id + "/" + data?.image?.[0]}
+        src={"/static/product_images/" + data?._id + "/" + data?.image?.[0]}
       />
       <Link to={"product/" + data._id}>
         <div className={styles.grayCapOfCottonFabric}>{data.name}</div>
