@@ -75,3 +75,11 @@
 .login__registerButton:hover{
     background-color: #e8f0fe;
 }
+
+/* for mobile  */
+
+@media screen and (max-width: 768px){
+    .login__form{
+        width: 100vw;
+    }
+}
