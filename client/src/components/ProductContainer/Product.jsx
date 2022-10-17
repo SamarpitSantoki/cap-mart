@@ -8,7 +8,13 @@ const Product = ({ data, addToCart }) => {
     <div className={[styles.groupDiv]}>
       <img
         className={styles.rectangleIcon1}
-        src={"/static/product_images/" + data?._id + "/" + data?.image?.[0]}
+        src={
+          proccess.env.REACT_APP_IMAGE_URL +
+          "/static/product_images/" +
+          data?._id +
+          "/" +
+          data?.image?.[0]
+        }
       />
       <Link to={"product/" + data._id}>
         <div className={styles.grayCapOfCottonFabric}>{data.name}</div>

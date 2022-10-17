@@ -88,6 +88,7 @@ function ProductInfo() {
                   aspectRatio: "16/9",
                 }}
                 src={
+                  proccess.env.REACT_APP_IMAGE_URL +
                   "/static/product_images/" +
                   product._id +
                   "/" +
@@ -111,7 +112,13 @@ function ProductInfo() {
                       return;
                     }}
                     width={250}
-                    src={"/static/product_images/" + product._id + "/" + item}
+                    src={
+                      proccess.env.REACT_APP_IMAGE_URL +
+                      "/static/product_images/" +
+                      product._id +
+                      "/" +
+                      item
+                    }
                     alt=""
                   />
                 );

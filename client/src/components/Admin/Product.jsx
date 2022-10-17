@@ -479,6 +479,7 @@ function Product() {
                 <td className="flex gap-x-4 items-center py-4 pl-10">
                   <img
                     src={
+                      proccess.env.REACT_APP_IMAGE_URL +
                       "/static/product_images/" +
                       prod._id +
                       "/" +
