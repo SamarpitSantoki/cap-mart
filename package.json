@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "client": "cd client && npm run build",
     "server": "cd server && yarn run start",
     "start": "yarn run server",
     "dev-client": "cd client && yarn run start",
