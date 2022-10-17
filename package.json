@@ -2,10 +2,9 @@
   "name": "cap-mart",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "client": "cd client && npm i && npm run build",
-    "server": "cd server && yarn install && npm run start",
+    "server": "cd server && yarn install ",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "dev-client": "cd client && npm run start",
     "dev-server": "cd server && npm run dev",
