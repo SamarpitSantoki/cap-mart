@@ -9,7 +9,7 @@ const Product = ({ data, addToCart }) => {
       <img
         className={styles.rectangleIcon1}
         src={
-          proccess.env.REACT_APP_IMAGE_URL +
+          process.env.REACT_APP_IMAGE_URL +
           "/static/product_images/" +
           data?._id +
           "/" +

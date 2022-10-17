@@ -88,7 +88,7 @@ function ProductInfo() {
                   aspectRatio: "16/9",
                 }}
                 src={
-                  proccess.env.REACT_APP_IMAGE_URL +
+                  process.env.REACT_APP_IMAGE_URL +
                   "/static/product_images/" +
                   product._id +
                   "/" +
@@ -113,7 +113,7 @@ function ProductInfo() {
                     }}
                     width={250}
                     src={
-                      proccess.env.REACT_APP_IMAGE_URL +
+                      process.env.REACT_APP_IMAGE_URL +
                       "/static/product_images/" +
                       product._id +
                       "/" +

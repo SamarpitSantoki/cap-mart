@@ -65,7 +65,7 @@ const OrderPage = () => {
                       <img
                         className="md:w-60 md:h-32 md:block"
                         src={
-                          proccess.env.REACT_APP_IMAGE_URL +
+                          process.env.REACT_APP_IMAGE_URL +
                           "/static/product_images/" +
                           item._id +
                           "/" +
