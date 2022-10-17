@@ -12,8 +12,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(fileupload());
 app.use(express.static(path.join(__dirname, "../../client/build")));
 app.use("/static", express.static(path.join(__dirname, "../public")));
+const PORT = process.env.PORT || 8000;
 
-const PORT = process.env.PORT;
 app.use("/api", router);
 console.log(path.join(__dirname, "../../client/build", "index.html"));
 
