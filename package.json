@@ -5,7 +5,7 @@
   "scripts": {
     "client": "cd client && npm run build",
     "server": "cd server && yarn run start",
-    "start": "concurrently \"yarn run server\" \"yarn run client\"",
+    "start": "yarn run client && yarn run server",
     "dev-client": "cd client && yarn run start",
     "dev-server": "cd server && yarn run dev",
     "dev": "concurrently \"yarn run dev-server\" \"yarn run dev-client\""
