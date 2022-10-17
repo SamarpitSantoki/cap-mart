@@ -99,11 +99,12 @@ export const updateProduct = async (req: Request, res: Response) => {
     _id,
   } = req.body;
   try {
-    console.log(req.files);
-
-    const imagesArray = Object.keys((req as any).files).map(
-      (itm) => (req as any).files[itm].name
-    );
+    let imagesArray;
+    if (req.files) {
+      imagesArray = Object.keys((req as any)?.files).map(
+        (itm) => (req as any).files[itm].name
+      );
+    }
     let categoryExists = await CategorySchema.findOne({ name: category });
     let subCategoryExists = await SubCategorySchema.findOne({
       name: subCategory,
@@ -112,9 +113,9 @@ export const updateProduct = async (req: Request, res: Response) => {
       return res.status(400).json({ msg: "Category does not exists" });
     }
 
-    fs.remove("./public/product_images/" + _id + "/" + image[0], (err) => {
-      if (err) console.log(err);
-    });
+    // fs.remove("./public/product_images/" + _id + "/" + image[0], (err) => {
+    //   if (err) console.log(err);
+    // });
 
     const updated = await Product.findByIdAndUpdate(
       { _id: _id },
@@ -128,11 +129,11 @@ export const updateProduct = async (req: Request, res: Response) => {
         stock,
         category,
         subCategory,
-        image: ImageData,
+        image: imagesArray,
       },
       { new: true }
     ).exec();
-    imagesArray.map((imageFile, i) => {
+    imagesArray?.map((imageFile, i) => {
       var productImage = (req as any).files?.[`image${i + 1}`];
       var path = "./public/product_images/" + updated._id + "/" + imageFile;
       productImage.mv(path);
@@ -140,7 +141,7 @@ export const updateProduct = async (req: Request, res: Response) => {
     res.send(updated);
   } catch (err: any) {
     console.error(err.message);
-    res.status(500).send("Server error");
+    res.status(500).send("Server error Occured");
   }
 };
 
