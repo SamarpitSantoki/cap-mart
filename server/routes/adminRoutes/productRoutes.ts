@@ -8,11 +8,9 @@ import {
 } from "../../controllers/admin/productController";
 import { validateProduct } from "../../middlewares/adminMiddleware";
 import fs from "fs";
-import multer from "multer";
-const upload = multer({ dest: "/client/public/images/" });
 const router = Router();
 
-router.post("/", upload.array("image1", 2), (req: Request, res: Response) => {
+router.post("/", (req: Request, res: Response) => {
   console.log("cameherer");
   // save the file to the server
   const errors = validationResult(req);

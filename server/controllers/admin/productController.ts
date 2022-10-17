@@ -4,7 +4,6 @@ import Product from "../../models/ProductSchema";
 import SubCategorySchema from "../../models/SubCategorySchema";
 import mkdirp from "mkdirp";
 import ResizeImg from "resize-img";
-import multer from "multer";
 import fs from "fs-extra";
 export const createProduct = async (req: Request, res: Response) => {
   const {
