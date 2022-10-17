@@ -2,22 +2,43 @@ import Header from "../../components/Header";
 import style from "./index.module.css";
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 function Register() {
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post(process.env.REACT_APP_BASE_URL + "/auth/register", {
-      name,
-      email,
-      password,
-      phone,
-    });
+    try {
+      const res = await axios.post(
+        process.env.REACT_APP_BASE_URL + "/auth/register",
+        {
+          name,
+          email,
+          password,
+          phone,
+        }
+      );
+      toast.success("Registered Succesfully");
+      sessionStorage.setItem("user", JSON.stringify(res.data));
+      navigate("/");
+      setIsLoading(false);
+    } catch (e) {
+      console.log(e);
+      if (e.response.data) {
+        toast.error(e.response.data.errors[0].msg);
+      } else {
+        toast.error(e.message);
+      }
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -52,6 +73,10 @@ function Register() {
               onChange={(e) => setPassword(e.target.value)}
             />
             <label className="fs-6">Confirm Password</label>
+            {/* check password and confirm password */}
+            {confirmPassword && password !== confirmPassword && (
+              <p className="text-danger">Password does not match</p>
+            )}
             <input
               type="text"
               value={confirmPassword}
@@ -60,9 +85,16 @@ function Register() {
             <button
               type="submit"
               className={style.login__signInButton}
-              onClick={handleSubmit}
+              onClick={() => {
+                setIsLoading(true);
+                handleSubmit();
+              }}
             >
-              Create Account
+              {isLoading ? (
+                <div className="spinner-border text-light" role="status"></div>
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </form>
           <Link to={"/login"} className={style.login__registerButton}>

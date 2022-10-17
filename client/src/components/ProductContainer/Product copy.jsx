@@ -2,12 +2,12 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styles from "./Product.module.css";
 
-const Product = ({ data, addToCart }) => {
-
+const ProductCopy = ({ data, addToCart }) => {
   return (
     <div className={[styles.groupDiv]}>
       <img
         className={styles.rectangleIcon1}
+        alt=""
         src={"/static/product_images/" + data?._id + "/" + data?.image?.[0]}
       />
       <Link to={"product/" + data._id}>
@@ -32,4 +32,4 @@ const Product = ({ data, addToCart }) => {
   );
 };
 
-export default Product;
+export default ProductCopy;

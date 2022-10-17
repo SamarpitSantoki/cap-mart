@@ -121,7 +121,7 @@ function ProductInfo() {
         </Row>
 
         <Row className={styles.productInfo}>
-          <Col>
+          <Col sm={2} md={6}>
             <span
               style={{
                 display: "flex",
@@ -149,13 +149,15 @@ function ProductInfo() {
               <h5>warranty: 1 Year stiching warranty</h5>
             </div>
           </Col>
-          <Col>
+          <Col sm={2} md={6}>
             <Row>
               <div className={styles.checkoutBox}>
                 <h3>Checkout</h3>
                 <div className={styles.checkoutBoxContent}>
-                  <h5>
-                    Quantity:{" "}
+                  <span></span>
+
+                  <Col>
+                    <h5>Quantity: </h5>
                     <select
                       name="productCount"
                       value={product?.count}
@@ -165,29 +167,22 @@ function ProductInfo() {
                       <option value="2">2</option>
                       <option value="3">3</option>
                     </select>
-                  </h5>
-                  <h5>
-                    Size:{" "}
-                    <span>
-                      <select value={product?.size} onSelect={changeSize}>
-                        <option value="">S</option>
-                        <option value="">M</option>
-                        <option value="">L</option>
-                        <option value="">XL</option>
-                      </select>
-                    </span>
-                  </h5>
-                  <h5>
-                    Color:{" "}
-                    <span>
-                      <select value={product?.color} onSelect={changeColor}>
-                        <option value="">Red</option>
-                        <option value="">Blue</option>
-                        <option value="">Green</option>
-                        <option value="">Yellow</option>
-                      </select>
-                    </span>
-                  </h5>
+                    <h5>Size: </h5>
+                    <select value={product?.size} onSelect={changeSize}>
+                      <option value="">S</option>
+                      <option value="">M</option>
+                      <option value="">L</option>
+                      <option value="">XL</option>
+                    </select>
+
+                    <h5>Color: </h5>
+                    <select value={product?.color} onSelect={changeColor}>
+                      <option value="">Red</option>
+                      <option value="">Blue</option>
+                      <option value="">Green</option>
+                      <option value="">Yellow</option>
+                    </select>
+                  </Col>
                   {/* Buy now button */}
                   <button
                     className={styles.buyNowBtn}

@@ -2,27 +2,26 @@
   top: 12px;
   left: 7.5px;
   border-radius: var(--br-md);
-  width: 245px;
   height: 358px;
 }
 .rectangleIcon1 {
   position: absolute;
   top: 35px;
   left: 38px;
-  width: 184px;
-  height: 193px;
+  width: auto;
+  height: 194px;
   object-fit: cover;
 }
 .grayCapOfCottonFabric {
   position: absolute;
-  top: 242px;
-  left: 55px;
+  top: 240px;
+  left: 30px;
+  right: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 150px;
   display: -webkit-box;
-    max-width: 400px;
+    max-width: 150;
     height: 90.2px;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -78,8 +77,9 @@
 .groupDiv {
   background-color: white;
   position: relative;
-  width: 248.5px;
-  height: 362px;
+  max-width: 248.5px;
+  /* min-height: 00px; */
+  height: 370px;
   text-align: center;
   font-size: var(--font-size-base);
   color: var(--color-black);
@@ -93,4 +93,35 @@
   border: 0;
   color: white;
   font-weight: bold;
+}
+
+/* fonts smaller for mobile */
+@media (max-width: 768px) {
+  .grayCapOfCottonFabric {
+    font-size: .9rem;
+  }
+  .div {
+    font-size: 1.3rem;
+  }
+  /* put less margin */
+
+  .groupDiv {
+    margin: 2px;
+    height: 300px;
+  }
+
+  /* position grayCapOfCottonFabric */
+  .grayCapOfCottonFabric {
+    top:11rem;
+    left: 15px;
+    /* bottom: 100px; */
+    right: 15px;
+  }
+
+  /* position div */
+  .div {
+    top: 15.8rem;
+  left: 30px;
+    /* bottom: 100px; */
+  }
 }

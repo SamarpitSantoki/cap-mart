@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header";
 import Banner from "../../components/HomePage/Banner";
@@ -61,6 +62,7 @@ function HomePage() {
 
     setCart(tempCart);
     sessionStorage.setItem("cart", JSON.stringify(tempCart));
+    toast.success("Added to cart, Items in cart: " + tempCart.length);
     return;
   }
 
@@ -89,7 +91,7 @@ function HomePage() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          width: "100%",
+          // width: "full",
         }}
       >
         <Banner />
@@ -100,37 +102,43 @@ function HomePage() {
         }}
       >
         <div className="p-3">
-          <label htmlFor="categoryFilter">Category : </label>
-          <select
-            name="categoryFilter"
-            className="my-1 mx-2"
-            onChange={(e) => {
-              setFilter({ ...filter, category: e.target.value });
-            }}
-            value={filter.category}
-          >
-            <option value="">All</option>
-            {category.map((cat) => {
-              return <option value={cat.name}>{cat.name}</option>;
-            })}
-          </select>
-          <label htmlFor="subcategoryFilter">Sub Category : </label>
-          <select
-            className="m-1"
-            onChange={(e) => {
-              setFilter({ ...filter, subCategory: e.target.value });
-            }}
-            value={filter.subCategory}
-          >
-            <option value="">All</option>
-            {subCategory
-              .filter((sub) => {
-                return sub.parent === filter.category;
-              })
-              .map((sub) => {
-                return <option value={sub.name}>{sub.name}</option>;
-              })}
-          </select>
+          <Row sm={1} md={6}>
+            <Col>
+              <label htmlFor="categoryFilter">Category : </label>
+              <select
+                name="categoryFilter"
+                className="my-1 mx-2"
+                onChange={(e) => {
+                  setFilter({ ...filter, category: e.target.value });
+                }}
+                value={filter.category}
+              >
+                <option value="">All</option>
+                {category.map((cat) => {
+                  return <option value={cat.name}>{cat.name}</option>;
+                })}
+              </select>
+            </Col>
+            <Col>
+              <label htmlFor="subcategoryFilter">Sub Category : </label>
+              <select
+                className="m-1"
+                onChange={(e) => {
+                  setFilter({ ...filter, subCategory: e.target.value });
+                }}
+                value={filter.subCategory}
+              >
+                <option value="">All</option>
+                {subCategory
+                  .filter((sub) => {
+                    return sub.parent === filter.category;
+                  })
+                  .map((sub) => {
+                    return <option value={sub.name}>{sub.name}</option>;
+                  })}
+              </select>
+            </Col>
+          </Row>
         </div>
         <ProductContainer data={products} addToCart={addToCart} />
       </div>

@@ -8,7 +8,7 @@ const AdminPage = () => {
   return (
     <>
       <div>
-        <div className="w-fit lg:w-full min-h-screen font-sans text-gray-900 bg-gray-50 flex">
+        <div className="w-fit lg:w-full min-h-screen h-full font-sans text-gray-900 bg-gray-50 flex">
           {/* SideBar */}
           <aside className="py-6 px-10 w-64 border-r border-gray-200">
             <Link

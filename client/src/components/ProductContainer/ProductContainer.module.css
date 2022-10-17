@@ -100,3 +100,16 @@
   color: var(--color-black);
   font-family: var(--font-font);
 }
+
+/* for mobile users */
+@media (max-width: 768px) {
+  .rectangleDiv {
+    width: auto;
+    background-color: whitesmoke;
+  border-radius: 10px;
+    text-align: center;
+  font-size: 0.3rem;
+  color: var(--color-black);
+  font-family: var(--font-font);
+  }
+}

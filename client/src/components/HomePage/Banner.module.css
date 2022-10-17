@@ -1,5 +1,5 @@
 .f8140faec46017976ce96ee20decfeIcon {
-    width: 807px;
+    width: auto;
     height: 415px;
     object-fit: cover;
   }
@@ -7,16 +7,6 @@
     
     letter-spacing: 0.3em;
     display: inline-block;
-  }
-  .frameDiv,
-  .groupDiv {
-    
-    width: 807px;
-    height: 415px;
-  }
-  .groupDiv {
-    bottom: 0;
-    left: calc(50% - 403.5px);
   }
   .frameDiv {
     margin-top: 50px;

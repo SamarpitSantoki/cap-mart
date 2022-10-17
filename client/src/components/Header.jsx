@@ -3,6 +3,7 @@ import styles from "./index.module.css";
 import { Link } from "react-router-dom";
 function Header({ text, handleSearchFilter }) {
   const user = JSON.parse(sessionStorage.getItem("user"));
+
   const handleLogout = () => {
     sessionStorage.removeItem("user");
     window.location = "/login ";
@@ -11,7 +12,7 @@ function Header({ text, handleSearchFilter }) {
     <Container>
       <div className={styles.navbar}>
         <Link to={"/"}>
-          <div className={styles.title}>CAP SHOP</div>
+          <div className={styles.title}>RHeadMaker</div>
         </Link>
         <div className={styles.search}>
           {/* icon of search */}

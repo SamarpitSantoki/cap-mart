@@ -33,6 +33,18 @@
     list-style: none;
 }
 
+/* media query for mobile view */
+@media screen and (max-width: 768px){
+    .navbar{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .search{
+        margin: 0.4rem 0;
+    }
+}
+
 .nav{
     display: flex;
     justify-content: space-between;

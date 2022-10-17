@@ -115,17 +115,7 @@ function Product() {
   return (
     <main className="relative w-full pb-8">
       {/* <!--modal content--> */}
-      <ToastContainer
-        position="bottom-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+
       {modal && (
         <div
           id="edit_prod"
