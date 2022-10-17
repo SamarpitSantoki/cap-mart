@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "client": "cd client && npm i && npm run build",
-    "server": "cd server && yarn install && npm run start",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "dev-client": "cd client && npm run start",
-    "dev-server": "cd server && npm run dev",
-    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\""
+    "client": "cd client && npm install && npm run build",
+    "server": "cd server && yarn install && yarn run start",
+    "start": "concurrently \"yarn run server\" \"yarn run client\"",
+    "dev-client": "cd client && yarn run start",
+    "dev-server": "cd server && yarn run dev",
+    "dev": "concurrently \"yarn run dev-server\" \"yarn run dev-client\""
   },
   "author": "",
   "license": "ISC",

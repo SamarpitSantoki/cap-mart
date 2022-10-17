@@ -17,7 +17,7 @@ app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, express_fileupload_1.default)());
 app.use(express_1.default.static(path_1.default.join(__dirname, "../../client/build")));
 app.use("/static", express_1.default.static(path_1.default.join(__dirname, "../public")));
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8000;
 app.use("/api", routes_1.default);
 console.log(path_1.default.join(__dirname, "../../client/build", "index.html"));
 app.get("/*", function (req, res) {
