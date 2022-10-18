@@ -68,7 +68,6 @@ const OrderList = () => {
       toast.success("Order Status Updated");
       fecthUsers();
     } catch (e) {
-      console.error(err.message);
       console.log(e);
       if (e.response.data) {
         toast.error(e.response.data.errors[0].msg);
