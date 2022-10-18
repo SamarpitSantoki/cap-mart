@@ -87,9 +87,16 @@ function Product() {
         toast.success("Product Added Successfully");
         fetchProducts();
         setModal(false);
+        return;
       }
-    } catch (err) {
-      console.error(err.message);
+    } catch (e) {
+      console.log(e);
+      if (e.response.data) {
+        toast.error(e.response.data.errors[0].msg);
+      } else {
+        toast.error(e.message);
+      }
+      return;
     }
   };
 
@@ -479,7 +486,7 @@ function Product() {
                 <td className="flex gap-x-4 items-center py-4 pl-10">
                   <img
                     src={
-                      proccess.env.REACT_APP_IMAGE_URL +
+                      process.env.REACT_APP_IMAGE_URL +
                       "/static/product_images/" +
                       prod._id +
                       "/" +

@@ -104,8 +104,13 @@ const SubCategoryList = () => {
         fecthUsers();
         setModal(false);
       }
-    } catch (err) {
-      console.error(err.message);
+    } catch (e) {
+      console.log(e);
+      if (e.response.data) {
+        toast.error(e.response.data.errors[0].msg);
+      } else {
+        toast.error(e.message);
+      }
     }
   };
 
