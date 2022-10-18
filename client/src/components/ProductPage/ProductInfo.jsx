@@ -20,24 +20,13 @@ function ProductInfo() {
   }, []);
 
   const changeCount = (e) => {
-    setProduct({ ...product, count: e.target.value });
+    setProduct({ ...product, count: parseInt(e.target.value) });
   };
 
-  const changeSize = (e) => {
-    setProduct({ ...product, size: e.target.value });
-  };
-
-  const changeColor = (e) => {
-    setProduct({ ...product, color: e.target.value });
-  };
-
-  async function addToCart(product) {
+  async function addToCart() {
     let tempCart = JSON.parse(sessionStorage.getItem("cart"));
     if (!tempCart) {
-      sessionStorage.setItem(
-        "cart",
-        JSON.stringify([{ ...product, count: 1 }])
-      );
+      sessionStorage.setItem("cart", JSON.stringify([{ ...product }]));
       return;
     }
 
@@ -45,12 +34,12 @@ function ProductInfo() {
     if (exists) {
       tempCart = tempCart.map((item) => {
         if (item._id === product._id) {
-          return { ...item, count: item.count + 1 };
+          return { ...item, count: item.count + product.count };
         }
         return item;
       });
     } else {
-      tempCart.push({ ...product, count: 1 });
+      tempCart.push({ ...product });
     }
 
     sessionStorage.setItem("cart", JSON.stringify(tempCart));
@@ -85,7 +74,7 @@ function ProductInfo() {
                 style={{
                   margin: 10,
                   maxHeight: "50vh",
-                  aspectRatio: "16/9",
+                  aspectRatio: "1/1",
                 }}
                 src={
                   process.env.REACT_APP_IMAGE_URL +
@@ -112,6 +101,9 @@ function ProductInfo() {
                       return;
                     }}
                     width={250}
+                    style={{
+                      aspectRatio: "1/1",
+                    }}
                     src={
                       process.env.REACT_APP_IMAGE_URL +
                       "/static/product_images/" +
@@ -168,33 +160,18 @@ function ProductInfo() {
                     <select
                       name="productCount"
                       value={product?.count}
-                      onSelect={changeCount}
+                      onChange={changeCount}
                     >
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
-                    </select>
-                    <h5>Size: </h5>
-                    <select value={product?.size} onSelect={changeSize}>
-                      <option value="">S</option>
-                      <option value="">M</option>
-                      <option value="">L</option>
-                      <option value="">XL</option>
-                    </select>
-
-                    <h5>Color: </h5>
-                    <select value={product?.color} onSelect={changeColor}>
-                      <option value="">Red</option>
-                      <option value="">Blue</option>
-                      <option value="">Green</option>
-                      <option value="">Yellow</option>
                     </select>
                   </Col>
                   {/* Buy now button */}
                   <button
                     className={styles.buyNowBtn}
                     onClick={() => {
-                      addToCart(product);
+                      addToCart();
                       toast.success("Added to Cart");
                     }}
                   >

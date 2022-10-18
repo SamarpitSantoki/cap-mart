@@ -33,7 +33,7 @@ router.patch("/", validateUpdateSubCategory, (req: Request, res: Response) => {
   updateSubCategory(req, res);
 });
 
-router.delete("/", (req: Request, res: Response) => {
+router.delete("/:id", (req: Request, res: Response) => {
   deleteSubCategory(req, res);
 });
 

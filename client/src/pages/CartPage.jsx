@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "../components/Header";
+import { Button, Col } from "react-bootstrap";
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -108,6 +109,19 @@ const CartPage = () => {
     );
   }
 
+  async function handleRemove(id) {
+    const temp = cart.cartItems.filter((item) => item._id !== id);
+    const total = temp.reduce(
+      (acc, item) => acc + item.discountedPrice * item.count,
+      0
+    );
+    setCart({
+      total: total,
+      cartItems: temp,
+    });
+    sessionStorage.setItem("cart", JSON.stringify(temp));
+  }
+
   return (
     <>
       <Header />
@@ -157,40 +171,56 @@ const CartPage = () => {
                           </p>
                         </div>
                       </div>
-                      <div className="flex m justify-between space-x-8 items-start w-full">
-                        <p className="text-base dark:text-white xl:text-lg leading-6">
-                          Price: ₹{item.discountedPrice}
-                          <span className="text-red-300 line-through">
-                            {" "}
-                            ₹{item.price}
-                          </span>
-                        </p>
-                        <p className="text-base dark:text-white xl:text-lg leading-6 text-gray-800">
-                          Quantity :{" "}
-                          <input
-                            className="w-20"
-                            type={"number"}
-                            value={item?.count}
-                            onChange={(e) =>
-                              setCart((prev) => {
-                                const newCart = prev.cartItems.map((itm) => {
-                                  if (itm._id === item._id)
-                                    item.count = e.target.value;
-                                  return itm;
-                                });
-                                return { ...prev, cartItems: newCart };
-                              })
-                            }
-                          />
-                          {/* <option value="1">1</option>
+                      <Col sm={6}>
+                        <div className="flex m justify-between space-x-8 items-center w-full">
+                          <p className="text-base dark:text-white xl:text-lg leading-6">
+                            Price: ₹{item.discountedPrice}
+                            <span className="text-red-300 line-through">
+                              {" "}
+                              ₹{item.price}
+                            </span>
+                          </p>
+                          <p className="text-base dark:text-white xl:text-lg leading-6 text-gray-800">
+                            Quantity :{" "}
+                            <input
+                              className="w-20"
+                              type={"number"}
+                              value={item?.count}
+                              onChange={(e) => {
+                                if (e.target.value > 0) {
+                                  setCart((prev) => {
+                                    const newCart = prev.cartItems.map(
+                                      (itm) => {
+                                        if (itm._id === item._id)
+                                          item.count = e.target.value;
+                                        return itm;
+                                      }
+                                    );
+                                    return { ...prev, cartItems: newCart };
+                                  });
+                                } else {
+                                  e.target.value = 1;
+                                }
+                              }}
+                            />
+                            {/* <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                           </select> */}
-                        </p>
-                        <p className="text-base dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">
-                          Total : ₹{item.count * item.discountedPrice}
-                        </p>
-                      </div>
+                          </p>
+                          <p className="text-base dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">
+                            Total : ₹{item.count * item.discountedPrice}
+                          </p>
+                        </div>
+                        <div className="flex justify-end items-center w-full">
+                          <button
+                            onClick={() => handleRemove(item._id)}
+                            className="btn btn-outline-danger btn-sm mt-3 mr-5"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </Col>
                     </div>
                   </div>
                 );

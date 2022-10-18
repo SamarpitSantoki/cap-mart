@@ -5,6 +5,7 @@ import SubCategorySchema from "../../models/SubCategorySchema";
 import mkdirp from "mkdirp";
 import ResizeImg from "resize-img";
 import fs from "fs-extra";
+import paginatedResults from "../../helper/pagination";
 export const createProduct = async (req: Request, res: Response) => {
   const {
     name,
@@ -76,7 +77,16 @@ export const createProduct = async (req: Request, res: Response) => {
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
-    const data = await Product.find({}).exec();
+    const { page, limit } = req.query;
+    const filter: any = JSON.parse((req.query.filter as string) || "{}");
+    if (!filter.status) delete filter.status;
+
+    const data = await paginatedResults(
+      Product,
+      page as string,
+      limit as string,
+      filter
+    );
     res.status(200).json(data);
   } catch (err: any) {
     console.error(err.message);
@@ -95,10 +105,11 @@ export const updateProduct = async (req: Request, res: Response) => {
     stock,
     category,
     subCategory,
-    image,
     _id,
   } = req.body;
   try {
+    console.log("check this", req.files);
+
     let imagesArray;
     if (req.files) {
       imagesArray = Object.keys((req as any)?.files).map(
@@ -134,9 +145,11 @@ export const updateProduct = async (req: Request, res: Response) => {
       { new: true }
     ).exec();
     imagesArray?.map((imageFile, i) => {
-      var productImage = (req as any)?.files?.[`image${i + 1}`];
-      var path = "./public/product_images/" + updated._id + "/" + imageFile;
-      productImage?.mv(path);
+      if ((req as any).files[`image_${i + 1}`]) {
+        var productImage = (req as any)?.files?.[i];
+        var path = "./public/product_images/" + updated._id + "/" + imageFile;
+        productImage?.mv(path);
+      }
     });
     res.send(updated);
   } catch (err: any) {

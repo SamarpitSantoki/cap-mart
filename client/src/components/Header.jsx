@@ -12,7 +12,10 @@ function Header({ text, handleSearchFilter }) {
     <Container>
       <div className={styles.navbar}>
         <Link to={"/"}>
-          <div className={styles.title}>RHeadMaker</div>
+          <div className={styles.title}>
+            <img src="/logo.png" alt="" width={"19%"} />
+            RHeadMaker
+          </div>
         </Link>
         <div className={styles.search}>
           {/* icon of search */}

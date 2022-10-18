@@ -14,41 +14,48 @@ const OrderList = () => {
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
+  const [filter, setFilter] = useState({});
+  const [page, setPage] = useState(1);
+  const status = [
+    { name: "Pending", value: "pending" },
+    { name: "Processing", value: "processing" },
+    { name: "Delivered", value: "delivered" },
+    { name: "Cancelled", value: "cancelled" },
+  ];
 
   useEffect(() => {
-    // Fetch items from another resources.
-    const endOffset = itemOffset + 10;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-    setCurrentItems(userList);
-    setPageCount(Math.ceil(userList.length / 10));
-  }, [itemOffset, userList]);
-
+    fecthUsers();
+  }, [filter, page]);
   //handle Pagination Click
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * 10) % userList.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
-    setItemOffset(newOffset);
+    console.log(event);
+    const _page = event.selected + 1;
+    setPage(_page);
   };
 
   const fecthUsers = async () => {
     try {
-      const res = await axios.get(process.env.REACT_APP_BASE_URL + "/order", {
-        headers: {
-          Authorization: `Bearer ${
-            JSON.parse(sessionStorage.getItem("user")).access_token
-          }`,
-        },
-      });
-      setUsersList(res.data);
+      const res = await axios.get(
+        process.env.REACT_APP_BASE_URL +
+          "/order?page=" +
+          page +
+          "&limit=10&filter=" +
+          JSON.stringify(filter),
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(sessionStorage.getItem("user")).access_token
+            }`,
+          },
+        }
+      );
+      setPageCount(Math.ceil(res.data.count / 10));
+
+      setUsersList(res.data.results);
     } catch (err) {
       console.error(err.message);
     }
   };
-  useEffect(() => {
-    fecthUsers();
-  }, []);
 
   const updateOrderStatus = async (e, _id) => {
     try {
@@ -188,10 +195,10 @@ const OrderList = () => {
       <div className="flex items-center justify-between py-7 px-10">
         <div>
           <h1 className="text-2xl font-semibold leading-relaxed text-gray-800">
-            Users
+            Orders
           </h1>
           <p className="text-sm font-medium text-gray-500">
-            Let&apos;s grow your business! Manage your Users here
+            Let&apos;s grow your business! Manage your Orders here
           </p>
         </div>
         <button
@@ -200,10 +207,22 @@ const OrderList = () => {
         >
           Add New
         </button>
-        <div
-          className="fixed hidden inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full"
-          id="my-modal"
-        ></div>
+      </div>
+      <div className="p-3">
+        <label htmlFor="categoryFilter">Status : </label>
+        <select
+          name="categoryFilter"
+          className="my-1 mx-2"
+          onChange={(e) => {
+            setFilter({ status: e.target.value });
+          }}
+          value={filter.category}
+        >
+          <option value="">All</option>
+          {status.map((status) => {
+            return <option value={status.value}>{status.name}</option>;
+          })}
+        </select>
       </div>
 
       <table className="w-full border-b border-t border-gray-200">
@@ -224,8 +243,8 @@ const OrderList = () => {
           </tr>
         </thead>
         <tbody className="w-fit">
-          {currentItems?.length &&
-            currentItems?.map((user) => {
+          {userList?.length > 0 &&
+            userList?.map((user) => {
               return (
                 <tr
                   key={user._id}
@@ -294,24 +313,26 @@ const OrderList = () => {
             })}
         </tbody>
       </table>
-      <div className="flex gap-x-2 justify-center pt-8 ">
-        <ReactPaginate
-          breakLabel="..."
-          containerClassName="flex justify-between list-none pointer items-center h-10 space-x-3"
-          activeLinkClassName="text-blue-300 text-white"
-          pageLinkClassName="p-2 border-2 rounded-sm  text-blue-100 border-blue-600 hover:bg-blue-600 hover:text-white"
-          pageRangeDisplayed={5}
-          renderOnZeroPageCount={null}
-          previousLabel={"← Previous"}
-          nextLabel={"Next →"}
-          pageCount={pageCount}
-          onPageChange={handlePageClick}
-          previousLinkClassName={"font-bold"}
-          nextLinkClassName={"font-bold"}
-          disabledClassName={"text-gray-500 cursor-not-allowed "}
-          activeClassName={"text-white "}
-        />
-      </div>
+      {userList?.length > 0 && (
+        <div className="flex gap-x-2 justify-center pt-8 ">
+          <ReactPaginate
+            breakLabel="..."
+            containerClassName="flex justify-between list-none pointer items-center h-10 space-x-3"
+            activeLinkClassName="bg-blue-600 text-white"
+            pageLinkClassName="p-2 border-2 rounded-sm text-primary border-blue-600 hover:bg-blue-600 hover:text-white"
+            pageRangeDisplayed={5}
+            renderOnZeroPageCount={null}
+            previousLabel={"← Previous"}
+            nextLabel={"Next →"}
+            pageCount={pageCount}
+            onPageChange={handlePageClick}
+            previousLinkClassName={"font-bold"}
+            nextLinkClassName={"font-bold"}
+            disabledClassName={"text-gray-500 cursor-not-allowed"}
+            activeClassName={"text-white "}
+          />
+        </div>
+      )}
     </main>
   );
 };

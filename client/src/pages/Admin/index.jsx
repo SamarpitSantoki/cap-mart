@@ -13,9 +13,10 @@ const AdminPage = () => {
           <aside className="py-6 px-10 w-64 border-r border-gray-200">
             <Link
               to="/"
-              className="text-3xl font-semibold px-2 py-2 ring-2 ring-blue-600 w-fit text-blue-600"
+              className="mx-auto w-fit flex justify-center flex-col items-center  text-blue-700 font-bold"
             >
-              Cap-Mart
+              <img src="/logo.png" width={70} alt="" />
+              RHeadMaker
             </Link>
             <ul id="myDIV" className="flex flex-col gap-y-6 pt-20">
               {/* {collections.map((collection) => {

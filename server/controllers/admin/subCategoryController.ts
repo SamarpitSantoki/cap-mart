@@ -85,7 +85,7 @@ export const updateSubCategory = async (req: Request, res: Response) => {
 };
 
 export const deleteSubCategory = async (req: Request, res: Response) => {
-  const { id } = req.body;
+  const { id } = req.params;
   try {
     const deleted = await SubCategorySchema.findByIdAndDelete({
       _id: id,

@@ -191,7 +191,7 @@ const UserList = () => {
             </td>
             <td className="py-4 px-4 text-center">Email</td>
             <td className="py-4 px-4 text-center">Phone Number</td>
-            <td className="py-4 pr-10 pl-4 text-center">Address</td>
+            {/* <td className="py-4 pr-10 pl-4 text-center"></td> */}
           </tr>
         </thead>
         <tbody className="w-fit">
@@ -222,11 +222,8 @@ const UserList = () => {
                     {" "}
                     {user.phone || "Not Provided"}{" "}
                   </td>
-                  <td className="pr-2">
-                    <span className="inline-block w-20 group-hover:hidden">
-                      product.createdAt
-                    </span>
-                    <div className="hidden group-hover:flex group-hover:w-20 group-hover:items-center group-hover:text-gray-500 group-hover:gap-x-2">
+                  {/* <td className="pr-2">
+                    <div>
                       <button
                         onClick={async () => {
                           if (modal === true) {
@@ -261,7 +258,7 @@ const UserList = () => {
                         />
                       </button>
                     </div>
-                  </td>
+                  </td> */}
                 </tr>
               );
             })}

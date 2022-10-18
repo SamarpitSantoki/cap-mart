@@ -3,6 +3,8 @@ import Order from "../models/OrderSchema";
 import User from "../models/UserSchema";
 import ProductSchema from "../models/ProductSchema";
 import { updateStock } from "./admin/productController";
+import { Models } from "mongoose";
+import paginatedResults from "../helper/pagination";
 
 export const createOrder = async (req: Request, res: Response) => {
   const { name, email, phone, address, cartItems, paymentMethod } = req.body;
@@ -68,9 +70,16 @@ export const createOrder = async (req: Request, res: Response) => {
 
 export const getOrders = async (req: Request, res: Response) => {
   try {
-    const filter: {} = JSON.parse((req.query.filter as string) || "{}");
+    const { page, limit } = req.query;
+    const filter: any = JSON.parse((req.query.filter as string) || "{}");
+    if (!filter.status) delete filter.status;
 
-    const orders = await Order.find(filter).sort({ createdAt: -1 }).exec();
+    const orders = await paginatedResults(
+      Order,
+      page as string,
+      limit as string,
+      filter
+    );
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
@@ -113,3 +122,4 @@ export const deleteOrder = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 };
+

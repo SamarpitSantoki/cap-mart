@@ -11,27 +11,34 @@ function Product() {
   const [edit, setEdit] = useState(null);
   const [modal, setModal] = useState(null);
   const [method, setMethod] = useState("Add");
-  const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const [category, setCategories] = useState([]);
   const [subCategory, setSubCategories] = useState([]);
   const [filter, setFilter] = useState({});
-
+  const [page, setPage] = useState(1);
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * 10) % products.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
-    setItemOffset(newOffset);
+    console.log(event);
+    const _page = event.selected + 1;
+    setPage(_page);
   };
   const fetchProducts = async () => {
     const res = await axios.get(
       process.env.REACT_APP_BASE_URL +
-        "/product?filter=" +
-        JSON.stringify(filter)
+        "/admin/product?page=" +
+        page +
+        "&limit=10&filter=" +
+        JSON.stringify(filter),
+      {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(sessionStorage.getItem("user")).access_token
+          }`,
+        },
+      }
     );
-    setProducts(res.data);
+    setPageCount(Math.ceil(res.data.count / 10));
+    setProducts(res.data.results);
 
     const res1 = await axios.get(process.env.REACT_APP_BASE_URL + "/category");
     setCategories(res1.data);
@@ -43,7 +50,7 @@ function Product() {
   };
   useEffect(() => {
     fetchProducts();
-  }, [filter]);
+  }, [filter, page]);
 
   const handleAddProduct = async () => {
     try {
@@ -333,7 +340,7 @@ function Product() {
                 onChange={(e) => {
                   // const check = dataURItoBlob(e.target.files[0]);
                   console.log(e.target.files[0]);
-                  edit.image1 = e.target.files[0];
+                  edit.image_1 = e.target.files[0];
                 }}
               />
             </div>
@@ -350,7 +357,7 @@ function Product() {
                 onChange={(e) => {
                   // const check = dataURItoBlob(e.target.files[0]);
                   console.log(e.target.files[0]);
-                  edit.image2 = e.target.files[0];
+                  edit.image_2 = e.target.files[0];
                 }}
               />
             </div>
@@ -367,7 +374,7 @@ function Product() {
                 onChange={(e) => {
                   // const check = dataURItoBlob(e.target.files[0]);
                   console.log(e.target.files[0]);
-                  edit.image3 = e.target.files[0];
+                  edit.image_3 = e.target.files[0];
                 }}
               />
             </div>
@@ -384,7 +391,7 @@ function Product() {
                 onChange={(e) => {
                   // const check = dataURItoBlob(e.target.files[0]);
                   console.log(e.target.files[0]);
-                  edit.image4 = e.target.files[0];
+                  edit.image_4 = e.target.files[0];
                 }}
               />
             </div>
@@ -478,94 +485,98 @@ function Product() {
           </tr>
         </thead>
         <tbody className="w-fit">
-          {products?.map((prod) => {
-            return (
-              <tr
-                key={prod._id}
-                //loop for diff products
-                className="hover:bg-gray-100 transition-colors group"
-              >
-                <td className="flex gap-x-4 items-center py-4 pl-10">
-                  <img
-                    src={
-                      process.env.REACT_APP_IMAGE_URL +
-                      "/static/product_images/" +
-                      prod._id +
-                      "/" +
-                      prod?.image[0]
-                    }
-                    alt="Product"
-                    height="100px"
-                    width="100px"
-                    className="w-40 aspect-[3/2] rounded-lg object-cover object-top border border-gray-200"
-                  />
-                  <div>
-                    <a href="#" className="text-lg font-semibold text-gray-700">
-                      {prod.name}
-                    </a>
-                    <div className="font-medium text-gray-400">
-                      {" "}
-                      {prod.category}{" "}
+          {products.length > 0 &&
+            products?.map((prod) => {
+              return (
+                <tr
+                  key={prod._id}
+                  //loop for diff products
+                  className="hover:bg-gray-100 transition-colors group"
+                >
+                  <td className="flex gap-x-4 items-center py-4 pl-10">
+                    <img
+                      src={
+                        process.env.REACT_APP_IMAGE_URL +
+                        "/static/product_images/" +
+                        prod._id +
+                        "/" +
+                        prod?.image[0]
+                      }
+                      alt="Product"
+                      height="100px"
+                      width="100px"
+                      className="w-40 aspect-[3/2] rounded-lg object-cover object-top border border-gray-200"
+                    />
+                    <div>
+                      <a
+                        href="#"
+                        className="text-lg font-semibold text-gray-700"
+                      >
+                        {prod.name}
+                      </a>
+                      <div className="font-medium text-gray-400">
+                        {" "}
+                        {prod.category}{" "}
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td className="font-medium text-center"> {prod.category} </td>
-                <td className="font-medium text-center">
-                  {" "}
-                  {prod.subCategory}{" "}
-                </td>
-                <td className="font-medium text-center"> ₹{prod.price} </td>
-                <td className="font-medium text-center">
-                  {" "}
-                  ₹{prod.displayPrice}{" "}
-                </td>
-                <td className="font-medium text-center">
-                  {" "}
-                  ₹{prod.discountedPrice}{" "}
-                </td>
-                <td className="font-medium text-center">
-                  {" "}
-                  {prod?.orders}
-                  <div className="">
-                    <button
-                      onClick={async () => {
-                        if (modal === true) {
-                          setModal(false);
-                        }
-                        setEdit(prod);
-                        setMethod("Edit");
-                        setModal(true);
-                      }}
-                      className="p-2 hover:rounded-md hover:bg-gray-200"
-                    >
-                      <PencilIcon className="w-6 h-6 fill-current" />
-                    </button>
-                    <button
-                      className="p-2 hover:rounded-md hover:bg-gray-200 z-1"
-                      onClick={() => {
-                        // hadnleDelete(prod._id);
-                        handleDeleteProduct(prod._id);
-                      }}
-                    >
-                      <TrashIcon
-                        name={prod?.slug}
-                        className="w-6 h-6 fill-current z-0"
-                        onClick={() => handleDeleteProduct(prod._id)}
-                      />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            );
-          })}
+                  </td>
+                  <td className="font-medium text-center"> {prod.category} </td>
+                  <td className="font-medium text-center">
+                    {" "}
+                    {prod.subCategory}{" "}
+                  </td>
+                  <td className="font-medium text-center"> ₹{prod.price} </td>
+                  <td className="font-medium text-center">
+                    {" "}
+                    ₹{prod.displayPrice}{" "}
+                  </td>
+                  <td className="font-medium text-center">
+                    {" "}
+                    ₹{prod.discountedPrice}{" "}
+                  </td>
+                  <td className="font-medium text-center">
+                    {" "}
+                    {prod?.orders}
+                    <div className="">
+                      <button
+                        onClick={async () => {
+                          if (modal === true) {
+                            setModal(false);
+                          }
+                          setEdit(prod);
+                          setMethod("Edit");
+                          setModal(true);
+                        }}
+                        className="p-2 hover:rounded-md hover:bg-gray-200"
+                      >
+                        <PencilIcon className="w-6 h-6 fill-current" />
+                      </button>
+                      <button
+                        className="p-2 hover:rounded-md hover:bg-gray-200 z-1"
+                        onClick={() => {
+                          // hadnleDelete(prod._id);
+                          handleDeleteProduct(prod._id);
+                        }}
+                      >
+                        <TrashIcon
+                          name={prod?.slug}
+                          className="w-6 h-6 fill-current z-0"
+                          onClick={() => handleDeleteProduct(prod._id)}
+                        />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
       <div className="flex gap-x-2 justify-center pt-8 ">
         <ReactPaginate
           breakLabel="..."
           containerClassName="flex justify-between list-none pointer items-center h-10 space-x-3"
-          activeLinkClassName="text-blue-300 text-white"
-          pageLinkClassName="p-2 border-2 rounded-sm  text-blue-100 border-blue-200 hover:bg-blue-200 hover:text-white"
+          activeLinkClassName="bg-blue-600 text-white"
+          pageLinkClassName="p-2 border-2 rounded-sm text-primary border-blue-600 hover:bg-blue-600 hover:text-white"
           pageRangeDisplayed={5}
           renderOnZeroPageCount={null}
           previousLabel={"← Previous"}
@@ -574,7 +585,7 @@ function Product() {
           onPageChange={handlePageClick}
           previousLinkClassName={"font-bold"}
           nextLinkClassName={"font-bold"}
-          disabledClassName={"text-gray-500 cursor-not-allowed "}
+          disabledClassName={"text-gray-500 cursor-not-allowed"}
           activeClassName={"text-white "}
         />
       </div>

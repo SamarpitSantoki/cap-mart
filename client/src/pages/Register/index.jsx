@@ -83,11 +83,10 @@ function Register() {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <button
-              type="submit"
               className={style.login__signInButton}
-              onClick={() => {
+              onClick={(e) => {
                 setIsLoading(true);
-                handleSubmit();
+                handleSubmit(e);
               }}
             >
               {isLoading ? (
