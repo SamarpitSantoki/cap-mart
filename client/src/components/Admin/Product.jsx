@@ -214,6 +214,7 @@ function Product() {
                 }}
                 value={edit?.category}
               >
+                <option value="">Select</option>
                 {category.map((cat) => (
                   <option
                     key={cat._id}
@@ -245,6 +246,7 @@ function Product() {
                 }}
                 value={edit?.subCategory}
               >
+                <option value="">Select</option>
                 {subCategory.map((cat) => (
                   <option
                     key={cat._id}

@@ -8,6 +8,7 @@ const Product = ({ data, addToCart }) => {
     <div className={[styles.groupDiv]}>
       <img
         className={styles.rectangleIcon1}
+        width="100%"
         src={
           process.env.REACT_APP_IMAGE_URL +
           "/static/product_images/" +

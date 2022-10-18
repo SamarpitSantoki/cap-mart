@@ -9,14 +9,13 @@ const ProductContainer = ({ data, addToCart }) => {
       <div className={styles.rectangleDiv1} />
       <Row xs={2} md={4}>
         {data?.map((item) => (
-          <>
-            <Col>
-              <Product addToCart={addToCart} key={item._id} data={item} />
-            </Col>
-            <Col>
-              <Product addToCart={addToCart} key={item._id} data={item} />
-            </Col>
-          </>
+          <Col
+            style={{
+              marginBottom: "1rem",
+            }}
+          >
+            <Product addToCart={addToCart} key={item._id} data={item} />
+          </Col>
         ))}
       </Row>
     </div>

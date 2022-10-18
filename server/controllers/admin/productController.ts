@@ -102,7 +102,7 @@ export const updateProduct = async (req: Request, res: Response) => {
     let imagesArray;
     if (req.files) {
       imagesArray = Object.keys((req as any)?.files).map(
-        (itm) => (req as any).files[itm].name
+        (itm) => (req as any)?.files[itm]?.name
       );
     }
     let categoryExists = await CategorySchema.findOne({ name: category });
@@ -134,9 +134,9 @@ export const updateProduct = async (req: Request, res: Response) => {
       { new: true }
     ).exec();
     imagesArray?.map((imageFile, i) => {
-      var productImage = (req as any).files?.[`image${i + 1}`];
+      var productImage = (req as any)?.files?.[`image${i + 1}`];
       var path = "./public/product_images/" + updated._id + "/" + imageFile;
-      productImage.mv(path);
+      productImage?.mv(path);
     });
     res.send(updated);
   } catch (err: any) {

@@ -5,16 +5,14 @@
   height: 358px;
 }
 .rectangleIcon1 {
-  position: absolute;
-  top: 35px;
-  left: 38px;
+  padding: 1rem;
   width: auto;
   height: 194px;
   object-fit: cover;
 }
 .grayCapOfCottonFabric {
   position: absolute;
-  top: 240px;
+  top: 200px;
   left: 30px;
   right: 30px;
   display: flex;
