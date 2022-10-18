@@ -74,7 +74,7 @@ function ProductInfo() {
                 style={{
                   margin: 10,
                   maxHeight: "50vh",
-                  aspectRatio: "1/1",
+                  aspectRatio: "auto",
                 }}
                 src={
                   process.env.REACT_APP_IMAGE_URL +
@@ -100,7 +100,7 @@ function ProductInfo() {
                       setBigImage(i);
                       return;
                     }}
-                    width={250}
+                    width={150}
                     style={{
                       aspectRatio: "1/1",
                     }}

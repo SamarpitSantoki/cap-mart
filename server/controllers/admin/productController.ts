@@ -63,10 +63,12 @@ export const createProduct = async (req: Request, res: Response) => {
       })
       .then((p) => console.log(`made dir staring with ${p}`));
 
-    imagesArray.map((imageFile, i) => {
-      var productImage = (req as any).files?.[`image${i + 1}`];
-      var path = "./public/product_images/" + product._id + "/" + imageFile;
-      productImage.mv(path);
+    imagesArray?.map((imageFile, i) => {
+      if ((req as any).files[`image_${i + 1}`]) {
+        var productImage = (req as any)?.files[`image_${i + 1}`];
+        var path = "./public/product_images/" + product._id + "/" + imageFile;
+        productImage?.mv(path);
+      }
     });
 
     res.status(200).json({ product });
@@ -110,10 +112,10 @@ export const updateProduct = async (req: Request, res: Response) => {
   try {
     console.log("check this", req.files);
 
-    let imagesArray;
+    let imagesArray = [null, null, null, null];
     if (req.files) {
-      imagesArray = Object.keys((req as any)?.files).map(
-        (itm) => (req as any)?.files[itm]?.name
+      imagesArray = Object.keys((req as any)?.files).map((itm) =>
+        (req as any)?.files[itm]?.name.replace(/\s/g, "")
       );
     }
     let categoryExists = await CategorySchema.findOne({ name: category });
@@ -142,15 +144,24 @@ export const updateProduct = async (req: Request, res: Response) => {
         subCategory,
         image: imagesArray,
       },
-      { new: true }
+      { old: true }
     ).exec();
     imagesArray?.map((imageFile, i) => {
       if ((req as any).files[`image_${i + 1}`]) {
-        var productImage = (req as any)?.files?.[i];
+        var productImage = (req as any)?.files[`image_${i + 1}`];
         var path = "./public/product_images/" + updated._id + "/" + imageFile;
         productImage?.mv(path);
+        if (updated.image.length < 4) {
+          updated.image.unshift(imageFile);
+        } else {
+          updated.image.pop();
+          updated.image.unshift(imageFile);
+        }
       }
     });
+    console.log("updated", updated);
+    imagesArray?.map((imageFile, i) => {});
+    await updated.save();
     res.send(updated);
   } catch (err: any) {
     console.error(err.message);

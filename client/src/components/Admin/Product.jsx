@@ -561,7 +561,7 @@ function Product() {
                         <TrashIcon
                           name={prod?.slug}
                           className="w-6 h-6 fill-current z-0"
-                          onClick={() => handleDeleteProduct(prod._id)}
+                          // onClick={() => handleDeleteProduct(prod._id)}
                         />
                       </button>
                     </div>
