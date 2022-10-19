@@ -24,6 +24,10 @@ function ProductInfo() {
   };
 
   async function addToCart() {
+    if (!product.count) {
+      toast.error("Please Select Quantity");
+      return;
+    }
     let tempCart = JSON.parse(sessionStorage.getItem("cart"));
     if (!tempCart) {
       sessionStorage.setItem("cart", JSON.stringify([{ ...product }]));
@@ -155,6 +159,7 @@ function ProductInfo() {
                       value={product?.count}
                       onChange={changeCount}
                     >
+                      <option>Select</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
