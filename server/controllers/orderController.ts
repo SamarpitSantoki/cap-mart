@@ -14,14 +14,14 @@ export const createOrder = async (req: Request, res: Response) => {
       cartItems.map(async (item: any) => {
         const product = await ProductSchema.findById(item._id);
         if (product) {
-          if (product.discountedPrice !== item.price) {
-            item.price = product.discountedPrice;
+          if (product.displayPrice !== item.price) {
+            item.price = product.displayPrice;
             item.total = product.price * item.count;
           }
           item.category = product.category;
           item.subCategory = product.subCategory;
           item.shippingCharge = product.shippingCharge;
-          item.discountedPrice = product.discountedPrice;
+          item.displayPrice = product.displayPrice;
           item.price = product.price;
           console.log("item", item);
           return item;

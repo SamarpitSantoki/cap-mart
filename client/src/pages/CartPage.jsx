@@ -45,7 +45,7 @@ const CartPage = () => {
   async function getCart() {
     const temp = await JSON.parse(sessionStorage.getItem("cart"));
     const total = temp.reduce(
-      (acc, item) => acc + item.discountedPrice * item.count,
+      (acc, item) => acc + item.displayPrice * item.count,
       0
     );
     setCart({
@@ -112,7 +112,7 @@ const CartPage = () => {
   async function handleRemove(id) {
     const temp = cart.cartItems.filter((item) => item._id !== id);
     const total = temp.reduce(
-      (acc, item) => acc + item.discountedPrice * item.count,
+      (acc, item) => acc + item.displayPrice * item.count,
       0
     );
     setCart({
@@ -174,7 +174,7 @@ const CartPage = () => {
                       <Col sm={6}>
                         <div className="flex m justify-between space-x-8 items-center w-full">
                           <p className="text-base dark:text-white xl:text-lg leading-6">
-                            Price: ₹{item.discountedPrice}
+                            Price: ₹{item.displayPrice}
                             <span className="text-red-300 line-through">
                               {" "}
                               ₹{item.price}
@@ -209,7 +209,7 @@ const CartPage = () => {
                           </select> */}
                           </p>
                           <p className="text-base dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">
-                            Total : ₹{item.count * item.discountedPrice}
+                            Total : ₹{item.count * item.displayPrice}
                           </p>
                         </div>
                         <div className="flex justify-end items-center w-full">

@@ -21,10 +21,11 @@ export const createProduct = async (req: Request, res: Response) => {
   try {
     console.log("check");
     console.log(req.files);
-
-    const imagesArray = Object.keys((req as any).files).map(
-      (itm) => (req as any).files[itm].name
-    );
+    let imagesArray;
+    if (req.files)
+      imagesArray = Object.keys((req as any).files).map(
+        (itm) => (req as any).files[itm].name
+      );
 
     let categoryExists = await CategorySchema.findOne({ name: category });
     let subCategoryExists = await SubCategorySchema.findOne({

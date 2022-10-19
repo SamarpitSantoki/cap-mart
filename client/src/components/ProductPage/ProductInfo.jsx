@@ -78,10 +78,10 @@ function ProductInfo() {
                 }}
                 src={
                   process.env.REACT_APP_IMAGE_URL +
-                  "/static/product_images/" +
-                  product._id +
-                  "/" +
-                  product?.image[bigImage]
+                    "/static/product_images/" +
+                    product._id +
+                    "/" +
+                    product?.image[bigImage] || "/banner.png"
                 }
                 alt=""
               />
@@ -139,13 +139,6 @@ function ProductInfo() {
             <div className={styles.productDescription}>
               <h4>Description</h4>
               {product.description}
-              <h5>composition: 100% nylo</h5>
-              <h5>design: raftaar x raftar</h5>
-              <h5>color: pink</h5>
-              <h5>style: snapback cap</h5>
-              <h5>fitting: one size fits</h5>
-              <h5>buckel strap: 53.5 to 59.5cm</h5>
-              <h5>warranty: 1 Year stiching warranty</h5>
             </div>
           </Col>
           <Col sm={2} md={6}>

@@ -102,7 +102,7 @@ function HomePage() {
         }}
       >
         <div className="p-3">
-          <Row sm={1} md={6}>
+          <Row sm={1} md={4} lg={6}>
             <Col>
               <label htmlFor="categoryFilter">Category : </label>
               <select

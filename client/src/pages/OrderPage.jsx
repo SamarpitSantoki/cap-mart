@@ -96,7 +96,7 @@ const OrderPage = () => {
                       </div>
                       <div className="flex m justify-between space-x-8 items-start w-full">
                         <p className="text-base dark:text-white xl:text-lg leading-6">
-                          Price: ₹{item.discountedPrice}
+                          Price: ₹{item.displayPrice}
                           <span className="text-red-300 line-through">
                             {" "}
                             ₹{item.price}
@@ -106,7 +106,7 @@ const OrderPage = () => {
                           Quantity: {item.count}
                         </p>
                         <p className="text-base dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">
-                          Total: ₹ {item.count * item.discountedPrice}
+                          Total: ₹ {item.count * item.displayPrice}
                         </p>
                       </div>
                     </div>

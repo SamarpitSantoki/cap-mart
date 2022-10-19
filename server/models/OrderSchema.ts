@@ -28,12 +28,12 @@ const OrderSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      default: "Pending",
+      default: "pending",
     },
     paymentMethod: {
       type: String,
       required: true,
-      default: "Cash On Delivery",
+      default: "cod",
     },
   },
   { timestamps: true }

@@ -27,12 +27,11 @@
 .checkoutBox{
     align-self: center;
     width: 100%;
-    
 }
 
 .productInfo{
 
-    margin: 20px;
+    margin: auto;
 }
 
 .productInfo p{

@@ -306,20 +306,20 @@ function Product() {
             </div>
             <div>
               <label
-                htmlFor="discountedPrice"
+                htmlFor="shippingPrice"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               >
-                Discounted Price
+                Shipping Price
               </label>
               <input
                 type="text"
-                name="discountedPrice"
-                id="discountedPrice"
-                defaultValue={edit?.discountedPrice}
+                name="shippingPrice"
+                id="shippingPrice"
+                defaultValue={edit?.shippingPrice}
                 onChange={(e) => {
                   setEdit((prev) => ({
                     ...prev,
-                    discountedPrice: e.target.value,
+                    shippingPrice: e.target.value,
                   }));
                 }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -480,7 +480,7 @@ function Product() {
             <td className="py-4 px-4 text-center">Sub Category</td>
             <td className="py-4 px-4 text-center">Pricing</td>
             <td className="py-4 px-4 text-center">Display Price</td>
-            <td className="py-4 px-4 text-center">Discounted Price</td>
+            <td className="py-4 px-4 text-center">Shipping Price</td>
             <td className="py-4 px-4 text-center"></td>
           </tr>
         </thead>
@@ -532,7 +532,7 @@ function Product() {
                   </td>
                   <td className="font-medium text-center">
                     {" "}
-                    ₹{prod.discountedPrice}{" "}
+                    ₹{prod.shippingPrice}{" "}
                   </td>
                   <td className="font-medium text-center">
                     {" "}
