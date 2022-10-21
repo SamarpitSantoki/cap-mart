@@ -53,16 +53,6 @@ export const createProduct = async (req: Request, res: Response) => {
         console.log(err);
       })
       .then((p) => console.log(`made dir staring with ${p}`));
-    await mkdirp("./public/product_images/" + product._id + "/gallery")
-      .catch((err) => {
-        console.log(err);
-      })
-      .then((p) => console.log(`made dir staring with ${p}`));
-    await mkdirp("./public/product_images/" + product._id + "/gallery/thumbs")
-      .catch((err) => {
-        console.log(err);
-      })
-      .then((p) => console.log(`made dir staring with ${p}`));
 
     imagesArray?.map((imageFile, i) => {
       if ((req as any).files[`image_${i + 1}`]) {
@@ -149,14 +139,18 @@ export const updateProduct = async (req: Request, res: Response) => {
     ).exec();
     imagesArray?.map((imageFile, i) => {
       if ((req as any).files[`image_${i + 1}`]) {
-        var productImage = (req as any)?.files[`image_${i + 1}`];
-        var path = "./public/product_images/" + updated._id + "/" + imageFile;
-        productImage?.mv(path);
-        if (updated.image.length < 4) {
-          updated.image.unshift(imageFile);
-        } else {
-          updated.image.pop();
-          updated.image.unshift(imageFile);
+        try {
+          var productImage = (req as any)?.files[`image_${i + 1}`];
+          var path = "./public/product_images/" + updated._id + "/" + imageFile;
+          productImage?.mv(path);
+          if (updated.image.length < 4) {
+            updated.image.unshift(imageFile);
+          } else {
+            updated.image.pop();
+            updated.image.unshift(imageFile);
+          }
+        } catch (e) {
+          createFolderAndAddImage(req, updated, imageFile, i);
         }
       }
     });
@@ -188,3 +182,26 @@ export const updateStock = async (id: string, count: number) => {
     await product.save();
   }
 };
+
+async function createFolderAndAddImage(
+  req: any,
+  updated: any,
+  imageFile: any,
+  i: any
+) {
+  await mkdirp("./public/product_images/" + updated._id)
+    .catch((err) => {
+      console.log(err);
+    })
+    .then((p) => console.log(`made dir staring with ${p}`));
+
+  var productImage = (req as any)?.files[`image_${i + 1}`];
+  var path = "./public/product_images/" + updated._id + "/" + imageFile;
+  productImage?.mv(path);
+  if (updated.image.length < 4) {
+    updated.image.unshift(imageFile);
+  } else {
+    updated.image.pop();
+    updated.image.unshift(imageFile);
+  }
+}
