@@ -142,7 +142,7 @@ export const updateProduct = async (req: Request, res: Response) => {
       { old: true }
     ).exec();
     imagesArray?.map(async (imageFile, i) => {
-      if ((req as any).files[`image_${i + 1}`]) {
+      if (imageFile && (req as any).files[`image_${i + 1}`]) {
         try {
           console.log("came in try block");
 
