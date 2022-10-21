@@ -32,6 +32,7 @@ export const register = async (req: Request, res: Response) => {
       name: user.name,
       email: user.email,
       phone: user.phone,
+      isAdmin: user.isAdmin,
       access_token: user.access_token,
     });
   } catch (err: any) {
@@ -57,6 +58,7 @@ export const login = async (req: Request, res: Response) => {
         id: user.id,
         name: user.name,
         email: user.email,
+        isAdmin: user.isAdmin,
       },
     };
     const token = await generateJWT(payload);
@@ -66,6 +68,7 @@ export const login = async (req: Request, res: Response) => {
       name: user.name,
       email: user.email,
       phone: user.phoneNumber,
+      isAdmin: user.isAdmin,
       access_token: user.access_token,
     });
   } catch (err: any) {

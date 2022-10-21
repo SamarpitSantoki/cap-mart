@@ -1,10 +1,11 @@
-import styles from "./AdminPage.module.css";
-import { Col, Row } from "react-bootstrap";
-import { Link, Outlet, useLocation, use } from "react-router-dom";
-import Product from "../../components/Admin/Product";
+import { Link, Outlet, useLocation } from "react-router-dom";
 const AdminPage = () => {
   const location = useLocation();
-  console.log(location.pathname.includes("product"));
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  if (!user.isAdmin) {
+    // return a styled page saying you are not authorized
+    return <div>Not Authorized</div>;
+  }
   return (
     <>
       <div>

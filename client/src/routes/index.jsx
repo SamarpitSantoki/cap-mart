@@ -21,6 +21,7 @@ function index() {
       <Route path="/login" element={<Login />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/order/:id" element={<Order />} />
+
       <Route path="/admin" element={<AdminPage />}>
         <Route index element={<Product />} />
         <Route path="product" element={<Product />} />

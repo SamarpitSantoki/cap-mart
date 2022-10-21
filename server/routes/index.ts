@@ -6,7 +6,6 @@ import OrderRoute from "./orderRoute";
 import GenRoute from "./genRoute";
 const router = Router();
 
-dbConnect();
 router.use("/auth", AuthRoute);
 router.use("/admin", AdminRoute);
 router.use("/order", OrderRoute);

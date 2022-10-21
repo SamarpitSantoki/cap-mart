@@ -47,7 +47,7 @@ async function validateToken(req: any, res: any, next: any) {
       return res.status(401).json(result);
     }
 
-    if (user.isAdmin) (result as any).isadmin = true;
+    if (user.isAdmin) (result as any).isAdmin = true;
 
     req.headers = result;
 

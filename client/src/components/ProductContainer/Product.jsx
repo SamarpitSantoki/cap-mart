@@ -16,6 +16,7 @@ const Product = ({ data, addToCart }) => {
             "/" +
             data?.image?.[0]
           }
+          alt="product"
         />
         <Link to={"product/" + data._id}>
           <div className={styles.grayCapOfCottonFabric}>{data.name}</div>

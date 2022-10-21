@@ -78,7 +78,7 @@ function ProductInfo() {
                 style={{
                   margin: 10,
                   maxHeight: "50vh",
-                  aspectRatio: "auto",
+                  aspectRatio: "1/1",
                 }}
                 src={
                   process.env.REACT_APP_IMAGE_URL +
@@ -95,7 +95,7 @@ function ProductInfo() {
             <div className={styles.imageContainer}>
               {product.image.map((item, i) => {
                 if (i === bigImage) {
-                  return;
+                  return <></>;
                 }
                 return (
                   <img

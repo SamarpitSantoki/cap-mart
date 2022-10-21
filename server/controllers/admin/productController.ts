@@ -105,8 +105,12 @@ export const updateProduct = async (req: Request, res: Response) => {
 
     let imagesArray = [null, null, null, null];
     if (req.files) {
-      imagesArray = Object.keys((req as any)?.files).map((itm) =>
-        (req as any)?.files[itm]?.name.replace(/\s/g, "")
+      Object.keys((req as any)?.files).forEach(
+        (itm, index) =>
+          (imagesArray[index] = (req as any)?.files[itm]?.name.replace(
+            /\s/g,
+            ""
+          ))
       );
     }
     let categoryExists = await CategorySchema.findOne({ name: category });
@@ -137,25 +141,22 @@ export const updateProduct = async (req: Request, res: Response) => {
       },
       { old: true }
     ).exec();
-    imagesArray?.map((imageFile, i) => {
+    imagesArray?.map(async (imageFile, i) => {
       if ((req as any).files[`image_${i + 1}`]) {
         try {
+          console.log("came in try block");
+
           var productImage = (req as any)?.files[`image_${i + 1}`];
           var path = "./public/product_images/" + updated._id + "/" + imageFile;
-          productImage?.mv(path);
-          if (updated.image.length < 4) {
-            updated.image.unshift(imageFile);
-          } else {
-            updated.image.pop();
-            updated.image.unshift(imageFile);
-          }
+          await productImage.mv(path);
+          updated.image[i] = imageFile;
         } catch (e) {
+          console.log("came inthe catch block");
           createFolderAndAddImage(req, updated, imageFile, i);
         }
       }
     });
     console.log("updated", updated);
-    imagesArray?.map((imageFile, i) => {});
     await updated.save();
     res.send(updated);
   } catch (err: any) {
@@ -189,6 +190,8 @@ async function createFolderAndAddImage(
   imageFile: any,
   i: any
 ) {
+  console.log("came inthe function");
+
   await mkdirp("./public/product_images/" + updated._id)
     .catch((err) => {
       console.log(err);
