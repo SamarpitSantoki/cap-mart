@@ -6,25 +6,21 @@ const Footer = () => {
     <div className={styles.container}>
       <Row className="justify-center items-center">
         <Col>
-          <Row>
+          <Row className="mb-2 font-bold">
             <h4>Contact Details</h4>
           </Row>
           <span>
             <Row>
-              <a href="#">
-                Head Office: Avenue Fashion. 180-182 Regent Street, London
-              </a>
+              <h4>
+                Sparash recidency, Near Ashwini Bari, Opposite Prashant park
+                fatehpura paldi
+              </h4>
             </Row>
             <Row>
-              <a href="#">
-                Head Office: Avenue Fashion. 180-182 Regent Street, London
-              </a>
+              <h4>Ahmedabad Gujarat - 380007</h4>
             </Row>
             <Row>
-              <a href="#">Telephone: 0123-456-789</a>
-            </Row>
-            <Row>
-              <a href="#">Email: support@website.com</a>
+              <h4>Contact-9328790227</h4>
             </Row>
           </span>
         </Col>
