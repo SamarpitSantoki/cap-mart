@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "client": "cd client && npm run build",
-    "server": "cd server && yarn run start",
-    "start": "yarn run server",
+    "server": "cd server && npm run start",
+    "start": "npm run server",
     "dev-client": "cd client && yarn run start",
     "dev-server": "cd server && yarn run dev",
     "dev": "concurrently \"yarn run dev-server\" \"yarn run dev-client\""
